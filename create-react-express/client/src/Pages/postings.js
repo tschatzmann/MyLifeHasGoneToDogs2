@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import API from "../utils/apiPosting"
+import API from "../utils/apiPosting";
 
 
 class Postings extends Component {
     state = {
         Postings: []
-    }
+    };
 
 
 componentDidMount() {
@@ -69,7 +69,7 @@ componentDidMount() {
 
     );
   }
-}
+};
 
 
 export default Postings;
