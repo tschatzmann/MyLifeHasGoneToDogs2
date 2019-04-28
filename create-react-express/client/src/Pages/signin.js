@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 // import LoginBtn from "../components/LoginBtn";
 
-class Login extends Component {
+class SignIn extends Component {
   // Setting the initial values of this.state.username and this.state.password
   state = {
     username: "",
@@ -46,11 +46,11 @@ class Login extends Component {
           value={this.state.password}
           onChange={this.handleInputChange}
         />
-        <button onClick={this.handleFormSubmit}>Login</button>
+        <button onClick={this.handleFormSubmit}>Signin</button>
       </form>
     );
   }
 }
 
 
-export default Login;
+export default SignIn;
