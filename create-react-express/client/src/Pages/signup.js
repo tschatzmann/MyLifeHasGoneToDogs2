@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-// import LoginBtn from "../components/LoginBtn";
+import LoginBtn from "../components/LoginBtn";
 
 class Signup extends Component {
   // Setting the initial values of this.state.username and this.state.password

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-//import API from "../u";
 import { Link } from "react-router-dom";
+import API from "../utils/apiPosting"
 
 
 class Postings extends Component {
@@ -9,16 +9,16 @@ class Postings extends Component {
     }
 
 
-// componentDidMount() {
-//     this.loadPostings();
-//   }
+componentDidMount() {
+    this.loadPostings();
+  };
 
 
-//   loadPostings = () => {
-//     API.getPostings()
-//       .then(res => this.setState({ Postings: res.data }))
-//       .catch(err => console.log(err));
-//   };
+  loadPostings = () => {
+    API.getPostings()
+      .then(res => this.setState({ Postings: res.data }))
+      .catch(err => console.log(err));
+  };
 
   render() {
     return (

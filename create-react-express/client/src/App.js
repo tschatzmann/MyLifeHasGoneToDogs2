@@ -14,7 +14,7 @@ class App extends Component {
       <div>
         <nav>
           <ul>
-            <li><Link to="/">Home</Link></li>
+            <li><Link to="/">Signin</Link></li>
             <li><Link to="/posts">Posting</Link></li>
             <li><Link to="/signin">Singin</Link></li>
             <li><Link to="/signup">Signup</Link></li>
@@ -23,7 +23,7 @@ class App extends Component {
         </nav>
         <main>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Signin} />
             <Route path="/posts" component={Posting} />
             <Route path="/signin" component={Signin} />
             <Route path="/signup" component={Signup} />
