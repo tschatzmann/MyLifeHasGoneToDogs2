@@ -29,6 +29,20 @@ class SignIn extends Component {
 
   render() {
     return (
+      <main>
+              <div className="App">
+      {/* <div className="App-header"> */}
+      <div>
+        {/* <img src={logo} className="App-logo" alt="logo" /> */}
+        <h2>Welcome to My Life Has Gone to the Dogs</h2>
+      </div>
+      <p className="App-intro">
+      The place where you can vent lifes frustrations and celebrate achievments
+      </p>  
+      <img src="https://media.giphy.com/media/YB91IzHGyeeySRTIgy/giphy-downsized-large.gif"/>
+      <img src="https://media.giphy.com/media/5bgS90uCmWoWp2hBvj/giphy.gif"/>
+      <img src="https://media.giphy.com/media/l3q2FiP4yhoOWzvEc/giphy.gif"/>
+    </div>
       <form>
         <p>Username: {this.state.username}</p>
         <p>Password: {this.state.password}</p>
@@ -48,6 +62,7 @@ class SignIn extends Component {
         />
         <button onClick={this.handleFormSubmit}>Signin</button>
       </form>
+      </main>
     );
   }
 }
