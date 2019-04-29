@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const postingsController = require("../../controllers/postingsController");
+//git changes
 
 // Matches with "/api/postings"
 router.route("/")
