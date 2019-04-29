@@ -9,16 +9,16 @@ class Postings extends Component {
     };
 
 
-componentDidMount() {
-    this.loadPostings();
-  };
+// componentDidMount() {
+//     this.loadPostings();
+//   };
 
 
-  loadPostings = () => {
-    API.getPostings()
-      .then(res => this.setState({ Postings: res.data }))
-      .catch(err => console.log(err));
-  };
+//   loadPostings = () => {
+//     API.getPostings()
+//       .then(res => this.setState({ Postings: res.data }))
+//       .catch(err => console.log(err));
+//   };
 
   render() {
     return (
