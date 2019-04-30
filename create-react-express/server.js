@@ -26,6 +26,8 @@ app.get("*", function(req, res) {
 app.use("/api/author", apiAuthorRoutes);
 app.use("/api/posting", apiPostingRoutes);
 
+app.use(test)
+
 app.listen(PORT, function() {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
 });
