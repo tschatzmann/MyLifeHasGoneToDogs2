@@ -3,7 +3,7 @@ const postingsController = require("../../controllers/postingsController");
 //git changes
 
 // Matches with "/api/postings"
-router.route("/posted")
+router.route("/")
   .get(postingsController.findAll)
   .post(postingsController.create);
 
