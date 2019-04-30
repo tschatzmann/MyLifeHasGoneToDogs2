@@ -2,7 +2,7 @@ const router = require("express").Router();
 const authorController = require("../../controllers/authorsController");
 
 // Matches with "/api/author"
-router.route("/")
+router.route("/signin")
   .get(authorController.findAll)
   .post(authorController.create);
 

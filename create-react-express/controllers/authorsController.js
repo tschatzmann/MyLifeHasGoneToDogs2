@@ -1,6 +1,8 @@
 const db = require("../models");
 
 // Defining methods for the AuthorsController
+
+
 module.exports = {
   findAll: function(req, res) {
     db.Author

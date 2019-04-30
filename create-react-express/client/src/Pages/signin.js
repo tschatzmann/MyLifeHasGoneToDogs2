@@ -1,6 +1,8 @@
 
 import React, { Component } from "react";
 // import LoginBtn from "../components/LoginBtn";
+import API from "../utils/apiAuthor";
+import apiAuthor from "../utils/apiAuthor";
 
 class SignIn extends Component {
   // Setting the initial values of this.state.username and this.state.password
@@ -24,8 +26,13 @@ class SignIn extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
-    this.setState({ username: "", password: "" });
+    //this.setState({ username: "", password: "" });
+    API.getAuthor(this.props.match.params.username)
+    .then(res => this.setState({ author: res.data }))
+    .catch(err => console.log(err));
   };
+
+
 
   render() {
     return (
