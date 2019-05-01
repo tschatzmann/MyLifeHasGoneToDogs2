@@ -1,12 +1,13 @@
 
 import React, { Component } from "react";
 import LoginBtn from "../components/LoginBtn";
+import Axios from "axios";
 
 class Signup extends Component {
   // Setting the initial values of this.state.username and this.state.password
   state = {
-    username: "",
-    password: ""
+    username: "regtest1",
+    password: "regtest123"
   };
 
   // handle any changes to the input fields
@@ -23,6 +24,8 @@ class Signup extends Component {
   // When the form is submitted, prevent the default event and alert the username and password
   handleFormSubmit = event => {
     event.preventDefault();
+    console.log("trying o register");
+    Axios.post('/api/author', this.state)
     alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
     this.setState({ username: "", password: "" });
   };
