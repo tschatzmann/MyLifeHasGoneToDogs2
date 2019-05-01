@@ -7,21 +7,27 @@ const mongoose = require("mongoose")
 mongoose.connect("mongodb://localhost/MyLifeDogsDB", { useNewUrlParser: true, useCreateIndex: true, });
 
 const apiAuthorRoutes = require('./routes/api/author');
+const apiPostingRoutes = require('./routes/api/posting');
+
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(routes);
+app.use("/api/author", apiAuthorRoutes);
+app.use("/api/posting", apiPostingRoutes);
 // Send every request to the React app
 // Define any API routes before this runs
 app.get("*", function(req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-app.use("/api", apiAuthorRoutes);
+
+
 
 app.listen(PORT, function() {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
