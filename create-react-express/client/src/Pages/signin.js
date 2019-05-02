@@ -41,7 +41,7 @@ class SignIn extends Component {
       {/* <div className="App-header"> */}
       <div>
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <h2>Welcome to My Life Has Gone to the Dogs</h2>
+        <h2>Welcome to My Life Has Gone to the Dogs2</h2>
       </div>
       <p className="App-intro">
       The place where you can vent lifes frustrations and celebrate achievments
