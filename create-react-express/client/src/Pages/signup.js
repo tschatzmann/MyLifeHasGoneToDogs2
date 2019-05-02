@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import LoginBtn from "../components/LoginBtn";
-import Axios from "axios";
+import apiAuthor from "../utils/apiAuthor";
 
 class Signup extends Component {
   // Setting the initial values of this.state.username and this.state.password
@@ -26,7 +26,7 @@ class Signup extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     console.log("trying o register");
-    Axios.post('/api/author', this.state)
+    apiAuthor.saveAuthor(this.state)
     .then(response => console.log(response));
 alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
    // this.setState({ username: "", password: "" });

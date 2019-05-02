@@ -27,7 +27,7 @@ class SignIn extends Component {
     event.preventDefault();
     alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
     //this.setState({ username: "", password: "" });
-    Axios.get("/api/author",this.state.username)
+    apiAuthor.getAuthor(this.state.username)
     .then(response => console.log(response));
   };
 

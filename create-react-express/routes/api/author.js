@@ -8,8 +8,8 @@ router.route("/")
 
 // Matches with "/api/author/:id"
 router
-  .route("/:id")
-  .get(authorController.findById)
+  .route("/:username")
+  .get(authorController.findOne)
   .put(authorController.update)
   .delete(authorController.remove);
 

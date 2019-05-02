@@ -11,9 +11,9 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => console.log(err));
   },
-  findById: function(req, res) {
+  findOne: function(req, res) {
     db.Author
-      .findById(req.params.id)
+      .findOne({username: req.params.username})
       .then(dbModel => res.json(dbModel))
       .catch(err => console.log(err));
   },
