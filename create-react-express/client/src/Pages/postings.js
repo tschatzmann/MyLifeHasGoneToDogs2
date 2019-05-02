@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import API from "../utils/apiPosting";
+import axios from "axios"
 
 
 class Postings extends Component {
@@ -9,16 +9,17 @@ class Postings extends Component {
     };
 
 
-// componentDidMount() {
-//     this.loadPostings();
-//   };
+componentDidMount() {
+    this.loadPostings();
+  };
 
 
-//   loadPostings = () => {
-//     API.getPostings()
-//       .then(res => this.setState({ Postings: res.data }))
-//       .catch(err => console.log(err));
-//   };
+  loadPostings = () => {
+    console.log("at loadpostings")
+    axios.get("/api/posting")
+    .then(response => console.log(response));
+      // .then(res => this.setState({ Postings: res.data }))
+  };
 
   render() {
     return (
@@ -62,6 +63,9 @@ class Postings extends Component {
 <h1>
   welcome to posting page
 </h1>
+<div>
+  {/* {Postings} */}
+</div>
 </div>
 
 

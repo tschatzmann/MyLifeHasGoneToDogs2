@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 // import LoginBtn from "../components/LoginBtn";
-import API from "../utils/apiAuthor";
+import Axios from "axios";
 import apiAuthor from "../utils/apiAuthor";
 
 class SignIn extends Component {
@@ -27,9 +27,8 @@ class SignIn extends Component {
     event.preventDefault();
     alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
     //this.setState({ username: "", password: "" });
-    API.getAuthor(this.props.match.params.username)
-    .then(res => this.setState({ author: res.data }))
-    .catch(err => console.log(err));
+    Axios.get("/api/author",this.state.username)
+    .then(response => console.log(response));
   };
 
 
