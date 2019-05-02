@@ -7,7 +7,8 @@ class Signup extends Component {
   // Setting the initial values of this.state.username and this.state.password
   state = {
     username: "regtest1",
-    password: "regtest123"
+    password: "regtest123",
+    email: "regtest2@gmail.com"
   };
 
   // handle any changes to the input fields
@@ -26,8 +27,9 @@ class Signup extends Component {
     event.preventDefault();
     console.log("trying o register");
     Axios.post('/api/author', this.state)
-    alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
-    this.setState({ username: "", password: "" });
+    .then(response => console.log(response));
+alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
+   // this.setState({ username: "", password: "" });
   };
 
   render() {
@@ -49,6 +51,13 @@ class Signup extends Component {
           placeholder="Password"
           name="password"
           value={this.state.password}
+          onChange={this.handleInputChange}
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          name="email"
+          value={this.state.email}
           onChange={this.handleInputChange}
         />
         <button onClick={this.handleFormSubmit}>Login</button>
