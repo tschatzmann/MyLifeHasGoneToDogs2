@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import LoginBtn from "../components/LoginBtn";
+import signinBtn from "../components/signinBtn";
 import apiAuthor from "../utils/apiAuthor";
 
 class Signup extends Component {
@@ -60,7 +60,7 @@ alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
           value={this.state.email}
           onChange={this.handleInputChange}
         />
-        <button onClick={this.handleFormSubmit}>Login</button>
+        <button onClick={this.handleFormSubmit}>Signin</button>
       </form>
       </main>
     );
