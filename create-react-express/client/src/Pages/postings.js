@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import axios from "axios"
 import { Col, Row, Container } from "../components/grid";
 import { List, ListItem } from "../components/list";
-import { Input, TextArea, FormBtn } from "../components/form";
+//import { Input, TextArea, FormBtn } from "../components/form";
+import apiPosting from "../utils/apiPosting";
 
 
 class Postings extends Component {
@@ -23,7 +24,25 @@ componentDidMount() {
   // .then(response => console.log(response));
     .then(res => this.setState({ postings: res.data }))
   };
+//
+handleFormSubmit = event => {
+  event.preventDefault();
+  console.log("trying to save post");
+  apiPosting.savePost(this.state)
+  .then(response => console.log(response));
+// this.setState({ username: "", password: "" });
+};
+ // handle any changes to the input fields
+ handleInputChange = event => {
+  // Pull the name and value properties off of the event.target (the element which triggered the event)
+  const { name, value } = event.target;
 
+  // Set the state for the appropriate input field
+  this.setState({
+    [name]: value
+  });
+};
+//
   render() {
     return (
       <Container fluid>
@@ -32,10 +51,20 @@ componentDidMount() {
             {/* <Jumbotron> */}
               <h1>What Postings Should I Read?</h1>
             {/* </Jumbotron> */}
-            <form>
-              <TextArea name="text" placeholder="text" />
-              <FormBtn>Submit Posting</FormBtn>
-            </form>
+            {/* <form> */}
+              <input 
+                       type="text"
+          placeholder="text"
+          name="text"
+          value={this.state.text}
+          onChange={this.handleInputChange}
+          />
+              {/* <TextArea name="text" placeholder="text" /> */}
+              {/* <FormBtn>Submit Posting</FormBtn> */}
+              <button onClick={this.handleFormSubmit}>
+                Submit Posting
+              </button>
+            {/* </form> */}
           </Col>
           <Col size="md-6 sm-12">
             {/* <Jumbotron> */}
@@ -49,6 +78,7 @@ componentDidMount() {
                       <strong>
                         {posting.text}
                       </strong>
+                      {}
                     </a>
                     {/* <DeleteBtn /> */}
                   </ListItem>

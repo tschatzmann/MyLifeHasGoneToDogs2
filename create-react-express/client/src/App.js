@@ -1,10 +1,10 @@
 import React, { Component } from "react"
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 //import logo from "./logo.svg";
-import Home from "./Pages/home";
-import Posting from './Pages/postings';
-import Signin from "./Pages/signin";
-import Signup from "./Pages/signup";
+import Home from "./pages/home";
+import Posting from './pages/postings';
+import Signin from "./pages/signin";
+import Signup from "./pages/signup";
 import "./App.css";
 
 class App extends Component {
