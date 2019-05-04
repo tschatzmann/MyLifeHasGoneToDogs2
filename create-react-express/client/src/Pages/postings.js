@@ -19,7 +19,7 @@ class Postings extends Component {
 
   componentDidMount() {
     this.loadPostings();
-    //this.loadAuthorsPostings();
+    this.loadAuthorsPostings();
   };
 
 
@@ -32,8 +32,8 @@ class Postings extends Component {
   loadAuthorsPostings = () => {
     console.log("at loadauthorpostings")
     apiPosting.getPopulatePostings(this.props.location.state.authorid)
-      .then(response => console.log(response))
-      .then(res => this.setState({ authorpostings: res.data }))
+      .then(response => this.setState({ authorpostings: response.data }));
+     // .then(res => this.setState({ authorpostings: res.data }))
   };
 
   handleFormSubmit = event => {

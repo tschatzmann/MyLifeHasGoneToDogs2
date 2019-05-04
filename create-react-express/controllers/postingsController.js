@@ -42,7 +42,6 @@ module.exports = {
   getPopulatePostings: function(req,res) {
     console.log(req.body)
     db.Author.find({_id: req.params.id})
-    console.log(dbModel)
     // Specify that we want to populate the retrieved users with any associated notes
     .populate("postings")
     .then(function(dbModel) {

@@ -22,6 +22,6 @@ export default {
     return axios.post(`/api/posting/${postingData[0].authorid}`, postingData);
   },
   getPopulatePostings: function(id){
-    return axios.get(`api/populatedauthor/${id}`);
+    return axios.get(`/api/posting/populatedauthor/${id}`);
   },
 };

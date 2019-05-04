@@ -16,7 +16,7 @@ router
 
   //Matches with populate
   router
-  .route("api/populatedauthor")
+  .route("/populatedauthor/:id")
   .get(postingsController.getPopulatePostings)
 
 module.exports = router;
