@@ -9,6 +9,10 @@ export default {
   getAuthor: function(id) {
     return axios.get("/api/author/" + id);
   },
+  getAuthorsPopulatePostings: function(id){
+   return axios.get("api/populatedauthor");
+ },
+ 
   // Deletes the author with the given id
   deleteAthor: function(id) {
     return axios.delete("/api/author/" + id);

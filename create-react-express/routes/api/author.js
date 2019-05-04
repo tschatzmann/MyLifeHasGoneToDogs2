@@ -5,7 +5,9 @@ const authorController = require("../../controllers/authorsController");
 router.route("/")
   .get(authorController.findAll)
   .post(authorController.create);
-
+//
+router.route("/populatedauthor")
+  .get(authorController.getAuthorsPopulatePostings);
 // Matches with "/api/author/:id"
 router
   .route("/:username")

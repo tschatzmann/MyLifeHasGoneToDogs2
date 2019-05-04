@@ -16,10 +16,12 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
+    console.log('rea.body', req.body);
     db.Posting
       .create(req.body)
       .then(dbModel => {
-        db.Author.findOneAndUpdate({}, { $push: { postings: dbPosting._id } }, { new: true });  
+        console.log('the db model', dbModel);
+        db.Author.findOneAndUpdate({_id: req.params.id}, { $push: { postings: dbModel._id } }, { new: true });  
         res.json(dbModel)
       })
       .catch(err => res.status(422).json(err));
