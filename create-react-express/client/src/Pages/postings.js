@@ -8,6 +8,7 @@ import apiPosting from "../utils/apiPosting";
 
 
 class Postings extends Component {
+
     state = {
         postings: []
     };
@@ -25,13 +26,19 @@ componentDidMount() {
     .then(res => this.setState({ postings: res.data }))
   };
 //
-handleFormSubmit = event => {
-  event.preventDefault();
-  console.log("trying to save post");
-  apiPosting.savePost(this.state)
-  .then(response => console.log(response));
-// this.setState({ username: "", password: "" });
-};
+  handleFormSubmit = event => {
+    event.preventDefault();
+    if (this.state.text) {
+      const postingData = [{
+        text: this.state.text,
+        authorid: this.props.location.state.authorid,
+        date: new Date(Date.now())
+      }]
+      apiPosting.savePost(postingData)
+        .then(res => this.loadPostings())
+        .catch(err => console.log(err));
+    }
+  };
  // handle any changes to the input fields
  handleInputChange = event => {
   // Pull the name and value properties off of the event.target (the element which triggered the event)
@@ -44,6 +51,7 @@ handleFormSubmit = event => {
 };
 //
   render() {
+    console.log(this.props)
     return (
       <Container fluid>
         <Row>

@@ -6,6 +6,7 @@ const postingSchema = new Schema({
     waggingTail: {type: Number},
     peeingDog: {type: Number},
     poopingDog: {type: Number},
+    date: { type: Date, default: Date.now }
 });
 
 const Posting = mongoose.model("Posting", postingSchema);

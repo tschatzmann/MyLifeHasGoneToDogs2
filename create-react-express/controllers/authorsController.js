@@ -17,6 +17,20 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => console.log(err));
   },
+  getAuthorsPopulatePostings: function(req,res) {
+    db.Author.find({})
+    // Specify that we want to populate the retrieved users with any associated notes
+    .populate("postings")
+    .then(function(dbModel) {
+      // If able to successfully find and associate all Users and Notes, send them back to the client
+      res.json(dbModel);
+    })
+    .catch(function(err) {
+      // If an error occurs, send it back to the client
+      res.json(err);
+    });
+  },
+  
   create: function(req, res) {
     db.Author
       .create(req.body)

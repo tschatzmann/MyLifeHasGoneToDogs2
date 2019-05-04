@@ -8,7 +8,8 @@ class SignIn extends Component {
   // Setting the initial values of this.state.username and this.state.password
   state = {
     username: "",
-    password: ""
+    password: "",
+    authorid: "",
   };
 
   // handle any changes to the input fields
@@ -28,7 +29,19 @@ class SignIn extends Component {
     alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
     //this.setState({ username: "", password: "" });
     apiAuthor.getAuthor(this.state.username)
-    .then(response => console.log(response));
+    .then(response => {
+      // if check for password is good run code below 
+      // if password does not match alert that login is incorrect
+      sessionStorage.setItem('authenticated', true);
+      this.setState({
+        authorid: response.data._id,
+      }, () => {
+        this.props.history.push({
+          pathname: '/posts',
+          state: { authorid: this.state.authorid}
+        });
+      });
+    });
   };
 
 
@@ -43,7 +56,7 @@ class SignIn extends Component {
         <h2>Welcome to My Life Has Gone to the Dogs2</h2>
       </div>
       <p className="App-intro">
-      The place where you can vent lifes frustrations and celebrate achievments
+      The place where you can vent lifes frustrations and celebrate achievements
       </p>  
       <img src="https://media.giphy.com/media/YB91IzHGyeeySRTIgy/giphy-downsized-large.gif"/>
       <img src="https://media.giphy.com/media/5bgS90uCmWoWp2hBvj/giphy.gif"/>

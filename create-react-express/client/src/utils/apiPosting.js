@@ -15,6 +15,7 @@ export default {
   },
   // Saves a post to the database
   savePost: function(postingData) {
-    return axios.post("/api/posting", postingData);
+    console.log('the postingData', postingData);
+    return axios.post(`/api/posting/${postingData[0].authorid}`, postingData);
   }
 };
