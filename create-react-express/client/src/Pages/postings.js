@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import {emojify} from 'react-emojione';
 import axios from "axios"
 import { Col, Row, Container } from "../components/grid";
 import {TextArea, DisplayDog} from "../components/postingsdetail"
 import { List, ListItem } from "../components/list";
+import {BoneButton} from "../components/Emoji/bone";
+import {NewspaperButton} from "../components/Emoji/newspaper";
+import {CageButton} from "../components/Emoji/cage";
 //import { Input, TextArea, FormBtn } from "../components/form";
 import apiPosting from "../utils/apiPosting";
 
@@ -34,6 +38,16 @@ class Postings extends Component {
     apiPosting.getPopulatePostings(this.props.location.state.authorid)
       .then(response => this.setState({ authorpostings: response.data }));
      // .then(res => this.setState({ authorpostings: res.data }))
+              
+  };
+  addBone = (e, id) => {
+    alert("at add bone");
+  };
+  addNewspaper = (e, id) => {
+      alert("at add newspaper");
+  };
+  addCage= (e, id) => {
+        alert("at add cage");
   };
 
   handleFormSubmit = event => {
@@ -60,6 +74,7 @@ class Postings extends Component {
     [name]: value
   });
 };
+
 //
   render() {
     console.log(this.props)
@@ -83,7 +98,9 @@ class Postings extends Component {
               <button onClick={this.handleFormSubmit}>
                 Submit Posting
               </button>
+              
             {/* </form> */}
+            
             {
               this.state.authorpostings.length &&
               <TextArea value={this.state.authorpostings[0].text}/>
@@ -98,12 +115,18 @@ class Postings extends Component {
               <List>
                 {this.state.allpostings.map(allpost => (
                   <ListItem key={allpost._id}>
-                    <a href={"/api/posting/" + allpost._id}>
+                    <a href={"/api/posting/" + allpost}>
                       <strong>
                         {allpost.text}
                       </strong>
-                      {}
+                      {/* <img src="🦴" /> */}
+                     
+                      {/* <span role="img" aria-label="newspaper">🗞️</span>
+                      <span role="img" aria-label="poop">💩</span> */}
                     </a>
+                    <BoneButton addBone={this.addBone} allpost={allpost._id}/>
+                    <NewspaperButton addNewspaper={this.addNewspaper} allpost={allpost._id}/>
+                    <CageButton addCage={this.addCage} allpost={allpost._id}/>
                     {/* <DeleteBtn /> */}
                   </ListItem>
                 ))}
