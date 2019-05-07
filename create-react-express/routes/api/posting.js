@@ -14,4 +14,9 @@ router
   .put(postingsController.update)
   .delete(postingsController.remove);
 
+  //Matches with populate
+  router
+  .route("/populatedauthor/:id")
+  .get(postingsController.getPopulatePostings)
+
 module.exports = router;

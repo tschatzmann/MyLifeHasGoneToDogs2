@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import {emojify} from 'react-emojione';
 import axios from "axios"
 import { Col, Row, Container } from "../components/grid";
+import {TextArea, DisplayDog} from "../components/postingsdetail"
 import { List, ListItem } from "../components/list";
+import {BoneButton} from "../components/Emoji/bone";
+import {NewspaperButton} from "../components/Emoji/newspaper";
+import {CageButton} from "../components/Emoji/cage";
 //import { Input, TextArea, FormBtn } from "../components/form";
 import apiPosting from "../utils/apiPosting";
 
@@ -10,22 +15,41 @@ import apiPosting from "../utils/apiPosting";
 class Postings extends Component {
 
     state = {
-        postings: []
+        authorpostings: [],
+        allpostings: []
+
     };
 
 
-componentDidMount() {
+  componentDidMount() {
     this.loadPostings();
+    this.loadAuthorsPostings();
   };
 
 
   loadPostings = () => {
     console.log("at loadpostings")
-    axios.get("/api/posting")
+    apiPosting.getpostings("/api/posting")
   // .then(response => console.log(response));
-    .then(res => this.setState({ postings: res.data }))
+    .then(res => this.setState({ allpostings: res.data }))
   };
-//
+  loadAuthorsPostings = () => {
+    console.log("at loadauthorpostings")
+    apiPosting.getPopulatePostings(this.props.location.state.authorid)
+      .then(response => this.setState({ authorpostings: response.data }));
+     // .then(res => this.setState({ authorpostings: res.data }))
+              
+  };
+  addBone = (e, id) => {
+    alert("at add bone");
+  };
+  addNewspaper = (e, id) => {
+      alert("at add newspaper");
+  };
+  addCage= (e, id) => {
+        alert("at add cage");
+  };
+
   handleFormSubmit = event => {
     event.preventDefault();
     if (this.state.text) {
@@ -36,6 +60,7 @@ componentDidMount() {
       }]
       apiPosting.savePost(postingData)
         .then(res => this.loadPostings())
+        .then(res=> this.loadAuthorsPostings())
         .catch(err => console.log(err));
     }
   };
@@ -49,6 +74,7 @@ componentDidMount() {
     [name]: value
   });
 };
+
 //
   render() {
     console.log(this.props)
@@ -57,37 +83,50 @@ componentDidMount() {
         <Row>
           <Col size="md-6">
             {/* <Jumbotron> */}
-              <h1>What Postings Should I Read?</h1>
+              <h1>My Postings</h1>
             {/* </Jumbotron> */}
             {/* <form> */}
               <input 
-                       type="text"
-          placeholder="text"
-          name="text"
-          value={this.state.text}
-          onChange={this.handleInputChange}
+                type="text"
+                placeholder="text"
+                name="text"
+                value={this.state.text}
+                onChange={this.handleInputChange}
           />
               {/* <TextArea name="text" placeholder="text" /> */}
               {/* <FormBtn>Submit Posting</FormBtn> */}
               <button onClick={this.handleFormSubmit}>
                 Submit Posting
               </button>
+              
             {/* </form> */}
+            
+            {
+              this.state.authorpostings.length &&
+              <TextArea value={this.state.authorpostings[0].text}/>
+            }
+            <DisplayDog/>
           </Col>
           <Col size="md-6 sm-12">
             {/* <Jumbotron> */}
-              <h1>Postings On My List</h1>
+              <h1>The latest Postings</h1>
             {/* </Jumbotron> */}
-            {this.state.postings.length ? (
+            {this.state.allpostings.length ? (
               <List>
-                {this.state.postings.map(posting => (
-                  <ListItem key={posting._id}>
-                    <a href={"/api/posting/" + posting._id}>
+                {this.state.allpostings.map(allpost => (
+                  <ListItem key={allpost._id}>
+                    <a href={"/api/posting/" + allpost}>
                       <strong>
-                        {posting.text}
+                        {allpost.text}
                       </strong>
-                      {}
+                      {/* <img src="🦴" /> */}
+                     
+                      {/* <span role="img" aria-label="newspaper">🗞️</span>
+                      <span role="img" aria-label="poop">💩</span> */}
                     </a>
+                    <BoneButton addBone={this.addBone} allpost={allpost._id}/>
+                    <NewspaperButton addNewspaper={this.addNewspaper} allpost={allpost._id}/>
+                    <CageButton addCage={this.addCage} allpost={allpost._id}/>
                     {/* <DeleteBtn /> */}
                   </ListItem>
                 ))}

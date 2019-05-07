@@ -3,6 +3,8 @@ const db = require("../models");
 // Defining methods for the PostingsController
 module.exports = {
   findAll: function(req, res) {
+    console.log("in postings find all")
+    console.log(req.query)
     db.Posting
       .find(req.query)
       .sort({ date: -1 })
@@ -38,5 +40,20 @@ module.exports = {
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
-  }
+  },
+  getPopulatePostings: function(req,res) {
+    console.log("in populate")
+    console.log(req.params)
+    db.Posting.find({authorid: req.params.id})
+    // Specify that we want to populate the retrieved users with any associated notes
+   // .populate("postings")
+    .then(function(dbModel) {
+      // If able to successfully find and associate all Users and Notes, send them back to the client
+      res.json(dbModel);
+    })
+    .catch(function(err) {
+      // If an error occurs, send it back to the client
+      res.json(err);
+    });
+  },
 };
