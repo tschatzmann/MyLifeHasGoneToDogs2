@@ -10,13 +10,18 @@ import {NewspaperButton} from "../components/Emoji/newspaper";
 import {CageButton} from "../components/Emoji/cage";
 //import { Input, TextArea, FormBtn } from "../components/form";
 import apiPosting from "../utils/apiPosting";
+import { set } from "mongoose";
 
 
 class Postings extends Component {
 
     state = {
         authorpostings: [],
-        allpostings: []
+        allpostings: [],
+        boneCount: 0,
+        newsPaperCount: 0,
+        cageCount: 0,
+        emojiValue: "",
 
     };
 
@@ -40,15 +45,32 @@ class Postings extends Component {
      // .then(res => this.setState({ authorpostings: res.data }))
               
   };
-  addBone = (e, id) => {
-    alert("at add bone");
+  addUserReaction = (e, id, emojiValue) => {
+    switch(emojiValue) {
+      case "bone":
+        alert("has a bone")
+        this.setState({ boneCount: this.state.boneCount +1 },() =>{
+          alert(`boneCount ${this.state.boneCount}`)
+        })
+
+        break;
+      case "newspaper":
+      this.setState({ newsPaperCount: this.state.newsPaperCount +1 },() =>{
+        alert(`newsPaperCount ${this.state.newsPaperCount}`)
+      })
+      break;
+      case "cage":
+      this.setState({ cageCount: this.state.cageCount +1 },() =>{
+        alert(`cageCount ${this.state.cageCount}`)
+      })
+     break;        
+      default:
+        alert(`no found ${emojiValue}`)
+    }
+
+alert(`in user reactions ${emojiValue}`);
   };
-  addNewspaper = (e, id) => {
-      alert("at add newspaper");
-  };
-  addCage= (e, id) => {
-        alert("at add cage");
-  };
+ 
 
   handleFormSubmit = event => {
     event.preventDefault();
@@ -119,14 +141,10 @@ class Postings extends Component {
                       <strong>
                         {allpost.text}
                       </strong>
-                      {/* <img src="🦴" /> */}
-                     
-                      {/* <span role="img" aria-label="newspaper">🗞️</span>
-                      <span role="img" aria-label="poop">💩</span> */}
                     </a>
-                    <BoneButton addBone={this.addBone} allpost={allpost._id}/>
-                    <NewspaperButton addNewspaper={this.addNewspaper} allpost={allpost._id}/>
-                    <CageButton addCage={this.addCage} allpost={allpost._id}/>
+                    <BoneButton addUserReaction={this.addUserReaction} allpost={allpost._id} emojiValue={"bone"}/>
+                    <NewspaperButton addUserReaction={this.addUserReaction} allpost={allpost._id} emojiValue={"newspaper"}/>
+                    <CageButton addUserReaction={this.addUserReaction} allpost={allpost._id} emojiValue={"cage"}/>
                     {/* <DeleteBtn /> */}
                   </ListItem>
                 ))}
