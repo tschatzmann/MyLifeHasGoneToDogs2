@@ -48,9 +48,9 @@ class Postings extends Component {
   addUserReaction = (e, id, emojiValue) => {
     switch(emojiValue) {
       case "bone":
-        alert("has a bone")
         this.setState({ boneCount: this.state.boneCount +1 },() =>{
           alert(`boneCount ${this.state.boneCount}`)
+          console.log(`bone count in switch ${this.state.boneCount}`)
         })
 
         break;
@@ -68,9 +68,26 @@ class Postings extends Component {
         alert(`no found ${emojiValue}`)
     }
 
-alert(`in user reactions ${emojiValue}`);
+ this.updateCounts(id);
+
   };
  
+  updateCounts= (id)=>{
+    console.log("in update counts");
+    console.log(`bone count ${this.state.boneCount}`);
+    console.log(`newspaper count ${this.state.newsPaperCount}`);
+      const postingData = [{
+        authorid: id,
+        boneCount: this.state.boneCount,
+        newsPaperCount: this.state.newsPaperCount,
+        cageCount: this.state.cageCount,
+      }]
+      console.log(postingData);
+      apiPosting.updatePost(id, postingData)
+        .then(res => this.loadPostings())
+        .then(res=> this.loadAuthorsPostings())
+        .catch(err => console.log(err));
+    }
 
   handleFormSubmit = event => {
     event.preventDefault();
@@ -142,7 +159,7 @@ alert(`in user reactions ${emojiValue}`);
                         {allpost.text}
                       </strong>
                     </a>
-                    <BoneButton addUserReaction={this.addUserReaction} allpost={allpost._id} emojiValue={"bone"}/>
+                    <BoneButton addUserReaction={this.addUserReaction} allpost={allpost._id} emojiValue={"bone"} boneCount= {this.state.boneCount}/>
                     <NewspaperButton addUserReaction={this.addUserReaction} allpost={allpost._id} emojiValue={"newspaper"}/>
                     <CageButton addUserReaction={this.addUserReaction} allpost={allpost._id} emojiValue={"cage"}/>
                     {/* <DeleteBtn /> */}

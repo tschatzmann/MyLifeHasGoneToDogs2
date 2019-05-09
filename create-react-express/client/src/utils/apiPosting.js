@@ -12,6 +12,11 @@ export default {
   getPost: function(id) {
     return axios.get("/api/posting/" + id);
   },
+  updatePost: function(id, postingData) {
+    console.log("in updatePost")
+    console.log(postingData)
+    return axios.put("/api/posting/" + id, postingData);
+  },
   // Deletes the post with the given id
   deletePost: function(id) {
     return axios.delete("/api/posting/" + id);

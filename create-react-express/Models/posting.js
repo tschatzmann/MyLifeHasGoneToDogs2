@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 const postingSchema = new Schema({
     text: {type: String, required: true},
-    bone: {type: Number},
-    newpaper: {type: Number},
-    dogcage: {type: Number},
+    boneCount: {type: Number},
+    newsPaperCount: {type: Number},
+    cageCount: {type: Number},
     date: { type: Date, default: Date.now },
     authorid:{ 
         type: Schema.Types.ObjectId,
