@@ -1,24 +1,30 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import {emojify} from 'react-emojione';
+import Emojify from 'react-emojione';
 import axios from "axios"
 import { Col, Row, Container } from "../components/grid";
-import {TextArea, DisplayDog} from "../components/postingsdetail"
+import { TextArea, DisplayDog } from "../components/postingsdetail"
 import { List, ListItem } from "../components/list";
-import {BoneButton} from "../components/Emoji/bone";
-import {NewspaperButton} from "../components/Emoji/newspaper";
-import {CageButton} from "../components/Emoji/cage";
+import { BoneButton } from "../components/Emoji/bone";
+import { NewspaperButton } from "../components/Emoji/newspaper";
+import { CageButton } from "../components/Emoji/cage";
 //import { Input, TextArea, FormBtn } from "../components/form";
 import apiPosting from "../utils/apiPosting";
+import { set } from "mongoose";
+import style from "../components/Emoji/style.css"
 
 
 class Postings extends Component {
 
-    state = {
-        authorpostings: [],
-        allpostings: []
+  state = {
+    authorpostings: [],
+    allpostings: [],
+    boneCount: 0,
+    newspaperCount: 0,
+    cageCount: 0,
+    emojiValue: "",
 
-    };
+  };
 
 
   componentDidMount() {
@@ -30,25 +36,58 @@ class Postings extends Component {
   loadPostings = () => {
     console.log("at loadpostings")
     apiPosting.getpostings("/api/posting")
-  // .then(response => console.log(response));
-    .then(res => this.setState({ allpostings: res.data }))
+      // .then(response => console.log(response));
+      .then(res => this.setState({ allpostings: res.data }))
   };
   loadAuthorsPostings = () => {
     console.log("at loadauthorpostings")
     apiPosting.getPopulatePostings(this.props.location.state.authorid)
       .then(response => this.setState({ authorpostings: response.data }));
-     // .then(res => this.setState({ authorpostings: res.data }))
-              
+    // .then(res => this.setState({ authorpostings: res.data }))
+
   };
-  addBone = (e, id) => {
-    alert("at add bone");
+  addUserReaction = (e, id, emojiValue) => {
+    switch (emojiValue) {
+      case "bone":
+        this.setState({ boneCount: this.state.boneCount + 1 }, () => {
+          alert(`boneCount ${this.state.boneCount}`)
+          console.log(`bone count in switch ${this.state.boneCount}`)
+        })
+
+        break;
+      case "newspaper":
+        this.setState({ newspaperCount: this.state.newspaperCount + 1 }, () => {
+          alert(`newspaperCount ${this.state.newspaperCount}`)
+        })
+        break;
+      case "cage":
+        this.setState({ cageCount: this.state.cageCount + 1 }, () => {
+          alert(`cageCount ${this.state.cageCount}`)
+        })
+        break;
+      default:
+        alert(`no found ${emojiValue}`)
+    }
+    this.updateCounts(id);
   };
-  addNewspaper = (e, id) => {
-      alert("at add newspaper");
-  };
-  addCage= (e, id) => {
-        alert("at add cage");
-  };
+
+  updateCounts = (id) => {
+    console.log("in update counts");
+    console.log(`bone count ${this.state.boneCount}`);
+    console.log(`newspaper count ${this.state.newspaperCount}`);
+    const postingData = [{
+      id: id,
+      boneCount: this.state.boneCount,
+      newspaperCount: this.state.newspaperCount,
+      cageCount: this.state.cageCount,
+    }]
+    console.log(`before updatePost ${postingData}`);
+    console.log(`id ${id}`);
+    apiPosting.updatePost(postingData)
+      .then(res => this.loadPostings())
+      .then(res => this.loadAuthorsPostings())
+      .catch(err => console.log(err));
+  }
 
   handleFormSubmit = event => {
     event.preventDefault();
@@ -60,22 +99,21 @@ class Postings extends Component {
       }]
       apiPosting.savePost(postingData)
         .then(res => this.loadPostings())
-        .then(res=> this.loadAuthorsPostings())
+        .then(res => this.loadAuthorsPostings())
         .catch(err => console.log(err));
     }
   };
- // handle any changes to the input fields
- handleInputChange = event => {
-  // Pull the name and value properties off of the event.target (the element which triggered the event)
-  const { name, value } = event.target;
+  // handle any changes to the input fields
+  handleInputChange = event => {
+    // Pull the name and value properties off of the event.target (the element which triggered the event)
+    const { name, value } = event.target;
 
-  // Set the state for the appropriate input field
-  this.setState({
-    [name]: value
-  });
-};
-
-//
+    // Set the state for the appropriate input field
+    this.setState({
+      [name]: value
+    });
+  };
+  //
   render() {
     console.log(this.props)
     return (
@@ -83,33 +121,33 @@ class Postings extends Component {
         <Row>
           <Col size="md-6">
             {/* <Jumbotron> */}
-              <h1>My Postings</h1>
+            <h1>My Postings</h1>
             {/* </Jumbotron> */}
             {/* <form> */}
-              <input 
-                type="text"
-                placeholder="text"
-                name="text"
-                value={this.state.text}
-                onChange={this.handleInputChange}
-          />
-              {/* <TextArea name="text" placeholder="text" /> */}
-              {/* <FormBtn>Submit Posting</FormBtn> */}
-              <button onClick={this.handleFormSubmit}>
-                Submit Posting
+            <input
+              type="text"
+              placeholder="text"
+              name="text"
+              value={this.state.text}
+              onChange={this.handleInputChange}
+            />
+            {/* <TextArea name="text" placeholder="text" /> */}
+            {/* <FormBtn>Submit Posting</FormBtn> */}
+            <button onClick={this.handleFormSubmit}>
+              Submit Posting
               </button>
-              
+
             {/* </form> */}
-            
+
             {
               this.state.authorpostings.length &&
-              <TextArea value={this.state.authorpostings[0].text}/>
+              <TextArea value={this.state.authorpostings[0].text} />
             }
-            <DisplayDog/>
+            <DisplayDog />
           </Col>
           <Col size="md-6 sm-12">
             {/* <Jumbotron> */}
-              <h1>The latest Postings</h1>
+            <h1>The latest Postings</h1>
             {/* </Jumbotron> */}
             {this.state.allpostings.length ? (
               <List>
@@ -119,24 +157,24 @@ class Postings extends Component {
                       <strong>
                         {allpost.text}
                       </strong>
-                      {/* <img src="🦴" /> */}
-                     
-                      {/* <span role="img" aria-label="newspaper">🗞️</span>
-                      <span role="img" aria-label="poop">💩</span> */}
                     </a>
-                    <BoneButton addBone={this.addBone} allpost={allpost._id}/>
-                    <NewspaperButton addNewspaper={this.addNewspaper} allpost={allpost._id}/>
-                    <CageButton addCage={this.addCage} allpost={allpost._id}/>
+                    <h4>{allpost.boneCount} {allpost.newspaperCount} {allpost.cageCount}</h4>
+                    <Emojify>
+                      <button onClick={(e) => this.addUserReaction(e, allpost._id, "bone")} className="emoji-btn" role="img" aria-label="bone">🦴</button>
+                    </Emojify>
+                    {/* <BoneButton onClick={(e) => this.addUserReaction(e, allpost._id, "bone")}/> */}
+                    <NewspaperButton addUserReaction={this.addUserReaction} allpost={allpost._id} emojiValue={"newspaper"} />
+                    <CageButton addUserReaction={this.addUserReaction} allpost={allpost._id} emojiValue={"cage"} />
                     {/* <DeleteBtn /> */}
                   </ListItem>
                 ))}
               </List>
             ) : (
-              <h3>No Results to Display</h3>
-            )}
+                <h3>No Results to Display</h3>
+              )}
           </Col>
-          </Row>
-         </Container>
+        </Row>
+      </Container>
     );
   }
 };

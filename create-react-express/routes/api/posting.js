@@ -5,6 +5,7 @@ const postingsController = require("../../controllers/postingsController");
 // Matches with "/api/postings"
 router.route("/")
   .get(postingsController.findAll)
+  .put(postingsController.update)
 
 // Matches with "/api/postings/:id"
 router
@@ -14,8 +15,8 @@ router
   .put(postingsController.update)
   .delete(postingsController.remove);
 
-  //Matches with populate
-  router
+//Matches with populate
+router
   .route("/populatedauthor/:id")
   .get(postingsController.getPopulatePostings)
 
