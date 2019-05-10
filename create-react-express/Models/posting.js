@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const postingSchema = new Schema({
     text: {type: String, required: true},
     boneCount: {type: Number},
-    newsPaperCount: {type: Number},
+    newspaperCount: {type: Number},
     cageCount: {type: Number},
     date: { type: Date, default: Date.now },
     authorid:{ 

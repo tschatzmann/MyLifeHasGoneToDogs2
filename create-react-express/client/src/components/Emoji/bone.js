@@ -5,7 +5,7 @@ import "./style.css";
 export function BoneButton(props) {
   return (
     <Emojify>
-        <button className="emoji-btn" onClick={(e) => props.addUserReaction(e, props.allpost, props.emojiValue, props.boneCount)} role="img" aria-label="bone">🦴</button>
+        <button className="emoji-btn" role="img" aria-label="bone">🦴</button>
     </Emojify>
 );
   }
