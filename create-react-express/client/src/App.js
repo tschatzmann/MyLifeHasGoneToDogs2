@@ -1,10 +1,13 @@
 import React, { Component } from "react"
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 //import logo from "./logo.svg";
 import Home from "./pages/home";
 import Posting from './pages/postings';
 import Signin from "./pages/signin";
 import Signup from "./pages/signup";
+import AllPostingDetail from "./components/allpostingdetail/index";
+import allpostingdetail from "./pages/allposting";
 import "./App.css";
 
 class App extends Component {
@@ -27,7 +30,7 @@ class App extends Component {
             <Route path="/posts" component={Posting} />
             <Route path="/signin" component={Signin} />
             <Route path="/signup" component={Signup} />
-            <Route component={Error} />
+            {/* <Route component={Error} /> */}
           </Switch>
         </main>
       </div>

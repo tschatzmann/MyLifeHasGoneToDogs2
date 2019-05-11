@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Emojify from 'react-emojione';
-import axios from "axios"
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import axios from "axios";
 import { Col, Row, Container } from "../components/grid";
 import { TextArea, DisplayDog } from "../components/postingsdetail"
 import { List, ListItem } from "../components/list";
@@ -11,7 +12,8 @@ import { CageButton } from "../components/Emoji/cage";
 //import { Input, TextArea, FormBtn } from "../components/form";
 import apiPosting from "../utils/apiPosting";
 import { set } from "mongoose";
-import style from "../components/Emoji/style.css"
+import style from "../components/Emoji/style.css";
+
 
 
 class Postings extends Component {
@@ -23,10 +25,20 @@ class Postings extends Component {
     newspaperCount: 0,
     cageCount: 0,
     emojiValue: "",
+    modal: false,
 
   };
 
 
+
+
+
+
+  toggle() {
+    this.setState(prevState => ({
+      modal: !prevState.modal
+    }));
+  }
   componentDidMount() {
     this.loadPostings();
     this.loadAuthorsPostings();
@@ -153,11 +165,21 @@ class Postings extends Component {
               <List>
                 {this.state.allpostings.map(allpost => (
                   <ListItem key={allpost._id}>
-                    <a href={"/api/posting/" + allpost}>
+                    {/* <button > 
                       <strong>
                         {allpost.text}
                       </strong>
-                    </a>
+                    </button> */}
+                    <Button color="danger" onClick={this.toggle.bind(this)}>{allpost.text}</Button>
+                    <Modal isOpen={this.state.modal} toggle={this.toggle} >
+                      <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                      <ModalBody>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                      </ModalBody>
+                      <ModalFooter>
+                        <Button color="primary" onClick={this.toggle.bind(this)}>OK</Button>{' '}
+                      </ModalFooter>
+                    </Modal>
                     <h4>{allpost.boneCount} {allpost.newspaperCount} {allpost.cageCount}</h4>
                     <Emojify>
                       <button onClick={(e) => this.addUserReaction(e, allpost._id, "bone")} className="emoji-btn" role="img" aria-label="bone">🦴</button>
