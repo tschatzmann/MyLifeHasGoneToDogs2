@@ -6,8 +6,8 @@ import Home from "./pages/home";
 import Posting from './pages/postings';
 import Signin from "./pages/signin";
 import Signup from "./pages/signup";
-import AllPostingDetail from "./components/allpostingdetail/index";
-import allpostingdetail from "./pages/allposting";
+
+
 import "./App.css";
 
 class App extends Component {

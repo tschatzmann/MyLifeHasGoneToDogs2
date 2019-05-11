@@ -21,6 +21,7 @@ class Postings extends Component {
   state = {
     authorpostings: [],
     allpostings: [],
+    highestNum: { name: null, image: "", num: 0 },
     boneCount: 0,
     newspaperCount: 0,
     cageCount: 0,
@@ -28,12 +29,7 @@ class Postings extends Component {
     modal: false,
 
   };
-
-
-
-
-
-
+ 
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
@@ -83,6 +79,23 @@ class Postings extends Component {
     this.updateCounts(id);
   };
 
+  getDogGif = (allpost) => {
+    console.log('in getDogGif')
+    let arr = [
+      { b: 'bone', image: "https://media.giphy.com/media/5bgS90uCmWoWp2hBvj/giphy.gif", msg: `You received ${arr.b.num} bones` , num: allpost.boneCount },
+      { c: 'cage', image: "https://media.giphy.com/media/l3q2FiP4yhoOWzvEc/giphy.gif",  msg: `You received ${arr.b.num} bones`, num: allpost.newspaperCount },
+      { n: 'newspaper', image:"https://media.giphy.com/media/l3q2FiP4yhoOWzvEc/giphy.gif",  msg: `You received ${arr.b.num} bones`, num: allpost.cageCount }
+    ];
+    arr.sort(function (a, b) {
+      return b.num - a.num;
+    })
+    console.log(arr);
+      // console.log(highestNum)
+      this.setState({highestNum: arr[0]})
+      // return highestNum;
+
+    };
+
   updateCounts = (id) => {
     console.log("in update counts");
     console.log(`bone count ${this.state.boneCount}`);
@@ -114,6 +127,13 @@ class Postings extends Component {
         .then(res => this.loadAuthorsPostings())
         .catch(err => console.log(err));
     }
+  };
+  handlebuttonclick = (allpost)=> {
+    console.log('in button click')
+    console.log(allpost)
+    this.toggle();
+    this.getDogGif(allpost);
+    
   };
   // handle any changes to the input fields
   handleInputChange = event => {
@@ -170,11 +190,11 @@ class Postings extends Component {
                         {allpost.text}
                       </strong>
                     </button> */}
-                    <Button color="danger" onClick={this.toggle.bind(this)}>{allpost.text}</Button>
+                    <Button color="danger" onClick= {(e)=>this.handlebuttonclick(allpost)} >{allpost.text}</Button>
                     <Modal isOpen={this.state.modal} toggle={this.toggle} >
-                      <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                      <ModalHeader toggle={this.toggle}>{allpost.text}</ModalHeader>
                       <ModalBody>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        <img src= {this.state.highestNum.image}/>
                       </ModalBody>
                       <ModalFooter>
                         <Button color="primary" onClick={this.toggle.bind(this)}>OK</Button>{' '}
