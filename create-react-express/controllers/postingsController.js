@@ -55,6 +55,7 @@ module.exports = {
     db.Posting.find({ authorid: req.params.id })
       // Specify that we want to populate the retrieved users with any associated notes
       // .populate("postings")
+      .sort({ date: -1 })
       .then(function (dbModel) {
         // If able to successfully find and associate all Users and Notes, send them back to the client
         res.json(dbModel);
