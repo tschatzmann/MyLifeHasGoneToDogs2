@@ -4,8 +4,8 @@ import "./style.css";
 
 export function NewspaperButton(props) {
   return (
-    <Emojify>
-        <button className="emoji-btn" onClick={(e) => props.addUserReaction(e, props.allpost, props.emojiValue)} role="img" aria-label="newspaper">🗞️</button>
-    </Emojify>
+    // <Emojify>
+         <button  style={{borderColor: "transparent", backgroundColor: "transparent"}} onClick={(e) => props.addUserReaction(e, props.allpost, props.emojiValue )} ><img className= "emoji-btn doghouse" style={{width: 40, height: 40, paddingLeft: -10}}src={require('./assets/images/dognewspaper.jpeg')} /></button>
+    // </Emojify>
 );
   }
