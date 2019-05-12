@@ -21,7 +21,7 @@ class Postings extends Component {
   state = {
     authorpostings: [],
     allpostings: [],
-    highestNum: { name: null, image: "", num: 0 },
+    highestNum: { name: null, image: "", msg: "You have 3 waggy tails", num: 0 },
     boneCount: 0,
     newspaperCount: 0,
     cageCount: 0,
@@ -38,6 +38,7 @@ class Postings extends Component {
   componentDidMount() {
     this.loadPostings();
     this.loadAuthorsPostings();
+
   };
 
 
@@ -50,9 +51,10 @@ class Postings extends Component {
   loadAuthorsPostings = () => {
     console.log("at loadauthorpostings")
     apiPosting.getPopulatePostings(this.props.location.state.authorid)
-      .then(response => this.setState({ authorpostings: response.data }));
+      .then(response => this.setState({ authorpostings: response.data }))
+      // .then(response => this.getDogGif({authorpostings}));
     // .then(res => this.setState({ authorpostings: res.data }))
-
+      
   };
   addUserReaction = (e, id, emojiValue) => {
     switch (emojiValue) {
@@ -81,10 +83,11 @@ class Postings extends Component {
 
   getDogGif = (allpost) => {
     console.log('in getDogGif')
+    console.log(allpost)
     let arr = [
-      { b: 'bone', image: "https://media.giphy.com/media/5bgS90uCmWoWp2hBvj/giphy.gif", msg: `You received ${arr.b.num} bones` , num: allpost.boneCount },
-      { c: 'cage', image: "https://media.giphy.com/media/l3q2FiP4yhoOWzvEc/giphy.gif",  msg: `You received ${arr.b.num} bones`, num: allpost.newspaperCount },
-      { n: 'newspaper', image:"https://media.giphy.com/media/l3q2FiP4yhoOWzvEc/giphy.gif",  msg: `You received ${arr.b.num} bones`, num: allpost.cageCount }
+      { name: 'waggy tails', image: "https://media.giphy.com/media/YB91IzHGyeeySRTIgy/giphy-downsized-large.gif", msg: `You received ${allpost.boneCount} bones` , num: allpost.boneCount },
+      { name: 'cage', image: "https://media.giphy.com/media/5bgS90uCmWoWp2hBvj/giphy.gif",  msg: `You received ${allpost.newspaperCount} newspapers`, num: allpost.newspaperCount },
+      { name: 'newspaper', image:"https://media.giphy.com/media/l3q2FiP4yhoOWzvEc/giphy.gif",  msg: `You received ${allpost.cageCount} cages`, num: allpost.cageCount }
     ];
     arr.sort(function (a, b) {
       return b.num - a.num;
@@ -174,8 +177,11 @@ class Postings extends Component {
             {
               this.state.authorpostings.length &&
               <TextArea value={this.state.authorpostings[0].text} />
+
             }
-            <DisplayDog />
+              <img src = "https://media.giphy.com/media/YB91IzHGyeeySRTIgy/giphy-downsized-large.gif"/>
+              <h3>{this.state.highestNum.msg}</h3>
+            {/* <DisplayDog /> */}
           </Col>
           <Col size="md-6 sm-12">
             {/* <Jumbotron> */}
@@ -185,26 +191,29 @@ class Postings extends Component {
               <List>
                 {this.state.allpostings.map(allpost => (
                   <ListItem key={allpost._id}>
+                  
                     {/* <button > 
                       <strong>
                         {allpost.text}
                       </strong>
                     </button> */}
-                    <Button color="danger" onClick= {(e)=>this.handlebuttonclick(allpost)} >{allpost.text}</Button>
+                    <Button color="blue" onClick= {(e)=>this.handlebuttonclick(allpost)} >{allpost.text}</Button>
                     <Modal isOpen={this.state.modal} toggle={this.toggle} >
                       <ModalHeader toggle={this.toggle}>{allpost.text}</ModalHeader>
                       <ModalBody>
                         <img src= {this.state.highestNum.image}/>
+                        <h3>{this.state.highestNum.msg}</h3>
                       </ModalBody>
                       <ModalFooter>
                         <Button color="primary" onClick={this.toggle.bind(this)}>OK</Button>{' '}
                       </ModalFooter>
                     </Modal>
                     <h4>{allpost.boneCount} {allpost.newspaperCount} {allpost.cageCount}</h4>
-                    <Emojify>
+                    {/* <Emojify>
                       <button onClick={(e) => this.addUserReaction(e, allpost._id, "bone")} className="emoji-btn" role="img" aria-label="bone">🦴</button>
                     </Emojify>
-                    {/* <BoneButton onClick={(e) => this.addUserReaction(e, allpost._id, "bone")}/> */}
+                    <BoneButton onClick={(e) => this.addUserReaction(e, allpost._id, "bone")}/> */}
+                    <BoneButton addUserReaction={this.addUserReaction} allpost={allpost._id} emojiValue={"bone"} />
                     <NewspaperButton addUserReaction={this.addUserReaction} allpost={allpost._id} emojiValue={"newspaper"} />
                     <CageButton addUserReaction={this.addUserReaction} allpost={allpost._id} emojiValue={"cage"} />
                     {/* <DeleteBtn /> */}
