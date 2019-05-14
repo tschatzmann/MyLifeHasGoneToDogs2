@@ -11,7 +11,7 @@ import { NewspaperButton } from "../components/Emoji/newspaper";
 import { CageButton } from "../components/Emoji/cage";
 //import { Input, TextArea, FormBtn } from "../components/form";
 import apiPosting from "../utils/apiPosting";
-import { set } from "mongoose";
+//import { set } from "mongoose";
 import style from "../components/Emoji/style.css";
 
 
@@ -22,9 +22,9 @@ class Postings extends Component {
     authorpostings: [],
     allpostings: [],
     highestNum: { name: null, image: "", msg: "You have 3 waggy tails", num: 0 },
-    boneCount: 0,
-    newspaperCount: 0,
-    cageCount: 0,
+    // boneCount: 0,
+    //newspaperCount: 0,
+    // cageCount: 0,
     emojiValue: "",
     modal: false,
 
@@ -56,29 +56,32 @@ class Postings extends Component {
     // .then(res => this.setState({ authorpostings: res.data }))
       
   };
-  addUserReaction = (e, id, emojiValue) => {
+  addUserReaction = (e, allpost, emojiValue) => {
     switch (emojiValue) {
       case "bone":
-        this.setState({ boneCount: this.state.boneCount + 1 }, () => {
-          alert(`boneCount ${this.state.boneCount}`)
-          console.log(`bone count in switch ${this.state.boneCount}`)
-        })
+        // this.setState({ boneCount: this.state.boneCount + 1 }, () => {
+          allpost.boneCount = allpost.boneCount + 1
+          alert(`boneCount ${allpost.boneCount}`)
+          console.log(`bone count in switch ${allpost.boneCount}`)
+        // })
 
         break;
       case "newspaper":
-        this.setState({ newspaperCount: this.state.newspaperCount + 1 }, () => {
-          alert(`newspaperCount ${this.state.newspaperCount}`)
-        })
+     //   this.setState({ newspaperCount: this.state.newspaperCount + 1 }, () => {
+      allpost.newspaperCount = allpost.newspaperCount + 1
+      alert(`newspaperCount ${allpost.newspaperCount}`)
+      console.log(`newspaper count in switch ${allpost.newspaperCount}`)
+     //   })
         break;
       case "cage":
-        this.setState({ cageCount: this.state.cageCount + 1 }, () => {
-          alert(`cageCount ${this.state.cageCount}`)
-        })
+      allpost.cageCount = allpost.cageCount + 1
+      alert(`caseCount ${allpost.cageCount}`)
+      console.log(`cage count in switch ${allpost.cageCount}`)
         break;
       default:
         alert(`no found ${emojiValue}`)
     }
-    this.updateCounts(id);
+    this.updateCounts(allpost);
   };
 
   getDogGif = (allpost) => {
@@ -99,18 +102,19 @@ class Postings extends Component {
 
     };
 
-  updateCounts = (id) => {
+  updateCounts = (allpost) => {
     console.log("in update counts");
-    console.log(`bone count ${this.state.boneCount}`);
-    console.log(`newspaper count ${this.state.newspaperCount}`);
+    console.log(`bone count ${allpost.boneCount}`);
+    console.log(`newspaper count ${allpost.newspaperCount}`);
+    console.log(allpost);
     const postingData = [{
-      id: id,
-      boneCount: this.state.boneCount,
-      newspaperCount: this.state.newspaperCount,
-      cageCount: this.state.cageCount,
+      id: allpost._id,
+      boneCount: allpost.boneCount,
+      newspaperCount: allpost.newspaperCount,
+      cageCount: allpost.cageCount,
     }]
     console.log(`before updatePost ${postingData}`);
-    console.log(`id ${id}`);
+    console.log(`id ${allpost}`);
     apiPosting.updatePost(postingData)
       .then(res => this.loadPostings())
       .then(res => this.loadAuthorsPostings())
@@ -134,7 +138,7 @@ class Postings extends Component {
   handlebuttonclick = (allpost)=> {
     console.log('in button click')
     console.log(allpost)
-    this.toggle();
+    this.toggle(this.toggle.bind(this));
     this.getDogGif(allpost);
     
   };
@@ -197,7 +201,7 @@ class Postings extends Component {
                         {allpost.text}
                       </strong>
                     </button> */}
-                    <Button color="blue" onClick= {(e)=>this.handlebuttonclick(allpost)} >{allpost.text}</Button>
+                    <Button color="blue" onClick= {(e)=>this.handlebuttonclick({allpost})} >{allpost.text}</Button>
                     <Modal isOpen={this.state.modal} toggle={this.toggle} >
                       <ModalHeader toggle={this.toggle}>{allpost.text}</ModalHeader>
                       <ModalBody>
@@ -213,9 +217,9 @@ class Postings extends Component {
                       <button onClick={(e) => this.addUserReaction(e, allpost._id, "bone")} className="emoji-btn" role="img" aria-label="bone">🦴</button>
                     </Emojify>
                     <BoneButton onClick={(e) => this.addUserReaction(e, allpost._id, "bone")}/> */}
-                    <BoneButton addUserReaction={this.addUserReaction} allpost={allpost._id} emojiValue={"bone"} />
-                    <NewspaperButton addUserReaction={this.addUserReaction} allpost={allpost._id} emojiValue={"newspaper"} />
-                    <CageButton addUserReaction={this.addUserReaction} allpost={allpost._id} emojiValue={"cage"} />
+                    <BoneButton addUserReaction={this.addUserReaction} allpost={allpost} emojiValue={"bone"} />
+                    <NewspaperButton addUserReaction={this.addUserReaction} allpost={allpost} emojiValue={"newspaper"} />
+                    <CageButton addUserReaction={this.addUserReaction} allpost={allpost} emojiValue={"cage"} />
                     {/* <DeleteBtn /> */}
                   </ListItem>
                 ))}
