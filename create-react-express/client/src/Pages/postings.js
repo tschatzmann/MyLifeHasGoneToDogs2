@@ -13,6 +13,7 @@ import { CageButton } from "../components/Emoji/cage";
 import apiPosting from "../utils/apiPosting";
 //import { set } from "mongoose";
 import style from "../components/Emoji/style.css";
+import Jumbotron from "../components/Dogjumbotron"
 
 
 
@@ -155,11 +156,12 @@ class Postings extends Component {
     console.log(this.props)
     return (
       <Container fluid>
+      <Jumbotron/>
         <Row>
           <Col size="md-6">
-            {/* <Jumbotron> */}
-            <h1>My Postings</h1>
-            {/* </Jumbotron> */}
+            {/* <Jumbotron/> */}
+             <h1>My Postings</h1>
+            {/* </Jumbotron> */} 
             {/* <form> */}
             <input
               type="text"

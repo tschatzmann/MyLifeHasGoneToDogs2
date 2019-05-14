@@ -2,13 +2,14 @@
 import React, { Component } from "react";
 import signinBtn from "../components/signinBtn";
 import apiAuthor from "../utils/apiAuthor";
+import Jumbotron from "../components/Dogjumbotron";
 
 class Signup extends Component {
   // Setting the initial values of this.state.username and this.state.password
   state = {
-    username: "regtest1",
-    password: "regtest123",
-    email: "regtest2@gmail.com"
+    username: "",
+    password: "",
+    email: ""
   };
 
   // handle any changes to the input fields
@@ -35,7 +36,8 @@ alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
   render() {
     return (
         <main>
-        <h1>Signup</h1>
+        {/* <h1>Signup</h1> */}
+        <Jumbotron/>
       <form>
         <p>Username: {this.state.username}</p>
         <p>Password: {this.state.password}</p>
@@ -60,7 +62,7 @@ alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
           value={this.state.email}
           onChange={this.handleInputChange}
         />
-        <button onClick={this.handleFormSubmit}>Signin</button>
+        <button onClick={this.handleFormSubmit}>Signup</button>
       </form>
       </main>
     );

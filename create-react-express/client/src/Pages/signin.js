@@ -3,6 +3,7 @@ import React, { Component } from "react";
 // import LoginBtn from "../components/LoginBtn";
 import Axios from "axios";
 import apiAuthor from "../utils/apiAuthor";
+import Jumbotron from "../components/Dogjumbotron"
 
 class SignIn extends Component {
   // Setting the initial values of this.state.username and this.state.password
@@ -53,19 +54,8 @@ class SignIn extends Component {
   render() {
     return (
       <main>
-              <div className="App">
-      {/* <div className="App-header"> */}
-      <div>
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <h2>Welcome to My Life Has Gone to the Dogs2</h2>
-      </div>
-      <p className="App-intro">
-      The place where you can vent lifes frustrations and celebrate achievements
-      </p>  
-      <img src="https://media.giphy.com/media/YB91IzHGyeeySRTIgy/giphy-downsized-large.gif"/>
-      <img src="https://media.giphy.com/media/5bgS90uCmWoWp2hBvj/giphy.gif"/>
-      <img src="https://media.giphy.com/media/l3q2FiP4yhoOWzvEc/giphy.gif"/>
-    </div>
+              {/* <div className="App"> */}
+    <Jumbotron/>
       <form>
         <p>Username: {this.state.username}</p>
         <p>Password: {this.state.password}</p>

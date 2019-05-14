@@ -32,11 +32,19 @@ class NavBar extends React.Component {
       isOpen: !this.state.isOpen
     });
   }
+  handleblinkclick = event => {
+    event.preventDefault();
+      sessionStorage.setItem('authenticated', false);
+        this.props.history.push({
+          pathname: '/signin',
+        });
+    }
+
   render() {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <NavbarBrand href="/">My Life Has Gone To The Dogs</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
@@ -45,10 +53,13 @@ class NavBar extends React.Component {
             <Route path="/signin" component={Signin} />
             <Route path="/signup" component={Signup} /> */}
               <NavItem>
-                <NavLink href="/posts">Posts</NavLink>
+                <Link {...sessionStorage.getItem('authenticated') ? 'Posting' : null} to = "/posts">Posts</Link>
               </NavItem>
               <NavItem>
-                <Link to="/signin">Signin</Link>
+                <Link to="/signup">Signup</Link>
+              </NavItem>
+              <NavItem>
+                  <Link onClick={(e) => this.handleblinkclick()}>Signout</Link>
               </NavItem>
             </Nav>
           </Collapse>
