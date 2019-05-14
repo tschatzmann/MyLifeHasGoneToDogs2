@@ -6,17 +6,19 @@ import Home from "./pages/home";
 import Posting from './pages/postings';
 import Signin from "./pages/signin";
 import Signup from "./pages/signup";
+import Navbar from "./components/navbar"
 import {PrivateRoute} from "./components/privateroute";
 
 
 import "./App.css";
+import NavBar from "./components/navbar";
 
 class App extends Component {
   render() {
     return (
       <Router>
       <div>
-        <nav>
+        {/* <nav>
           <ul>
             <li><Link to="/">Signin</Link></li>
             <li><Link to="/posts">Posting</Link></li>
@@ -24,7 +26,8 @@ class App extends Component {
             <li><Link to="/signup">Signup</Link></li>
 
           </ul>
-        </nav>
+        </nav> */}
+        <Navbar/>
         <main>
           <Switch>
             <Route exact path="/"  component={Signin} />
