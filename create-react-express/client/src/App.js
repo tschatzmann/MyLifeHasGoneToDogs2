@@ -19,7 +19,7 @@ class App extends Component {
         <nav>
           <ul>
             <li><Link to="/">Signin</Link></li>
-            <li><Link to="/posts">Posting</Link></li>
+            <li><Link to="/posts">{sessionStorage.getItem('authentivate') ? 'Posting' : null}</Link></li>
             <li><Link to="/signin">Singin</Link></li>
             <li><Link to="/signup">Signup</Link></li>
 
@@ -28,7 +28,7 @@ class App extends Component {
         <main>
           <Switch>
             <Route exact path="/"  component={Signin} />
-            <Route path="/posts" component={Posting} />
+            <PrivateRoute path="/posts" component={Posting} />
             <Route path="/signin" component={Signin} />
             <Route path="/signup" component={Signup} />
             {/* <Route component={Error} /> */}
