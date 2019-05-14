@@ -30,6 +30,9 @@ class SignIn extends Component {
     //this.setState({ username: "", password: "" });
     apiAuthor.getAuthor(this.state.username)
     .then(response => {
+      if (response.data.password != this.state.password) {
+        alert('The username or password is incorrect')
+      } else {
       // if check for password is good run code below 
       // if password does not match alert that login is incorrect
       sessionStorage.setItem('authenticated', true);
@@ -41,6 +44,7 @@ class SignIn extends Component {
           state: { authorid: this.state.authorid}
         });
       });
+    }
     });
   };
 

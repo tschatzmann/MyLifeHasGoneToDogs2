@@ -1,11 +1,12 @@
 import React, { Component } from "react"
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, Switch, withRouter } from 'react-router-dom'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 //import logo from "./logo.svg";
 import Home from "./pages/home";
 import Posting from './pages/postings';
 import Signin from "./pages/signin";
 import Signup from "./pages/signup";
+import {PrivateRoute} from "./components/privateroute";
 
 
 import "./App.css";
@@ -26,7 +27,7 @@ class App extends Component {
         </nav>
         <main>
           <Switch>
-            <Route exact path="/" component={Signin} />
+            <Route exact path="/"  component={Signin} />
             <Route path="/posts" component={Posting} />
             <Route path="/signin" component={Signin} />
             <Route path="/signup" component={Signup} />
