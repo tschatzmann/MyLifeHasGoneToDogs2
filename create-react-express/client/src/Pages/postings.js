@@ -26,7 +26,7 @@ class Postings extends Component {
     modal: false,
 
   };
- 
+
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
@@ -48,32 +48,32 @@ class Postings extends Component {
   loadAuthorsPostings = () => {
     console.log("at loadauthorpostings")
     apiPosting.getPopulatePostings(this.props.location.state.authorid)
-      .then(response => this.setState({ authorpostings: response.data }))
-      // .then(response => this.getDogGif({authorpostings}));
+      .then(res => this.setState({ authorpostings: res.data }))
+      .then(res => this.getDogGif(this.state.authorpostings[0]));
     // .then(res => this.setState({ authorpostings: res.data }))
-      
+
   };
   addUserReaction = (e, postinfo, emojiValue) => {
     switch (emojiValue) {
       case "bone":
         // this.setState({ boneCount: this.state.boneCount + 1 }, () => {
-          postinfo.boneCount = postinfo.boneCount + 1
-          alert(`boneCount ${postinfo.boneCount}`)
-          console.log(`bone count in switch ${postinfo.boneCount}`)
+        postinfo.boneCount = postinfo.boneCount + 1
+        alert(`boneCount ${postinfo.boneCount}`)
+        console.log(`bone count in switch ${postinfo.boneCount}`)
         // })
 
         break;
       case "newspaper":
-     //   this.setState({ newspaperCount: this.state.newspaperCount + 1 }, () => {
-      postinfo.newspaperCount = postinfo.newspaperCount + 1
-      alert(`newspaperCount ${postinfo.newspaperCount}`)
-      console.log(`newspaper count in switch ${postinfo.newspaperCount}`)
-     //   })
+        //   this.setState({ newspaperCount: this.state.newspaperCount + 1 }, () => {
+        postinfo.newspaperCount = postinfo.newspaperCount + 1
+        alert(`newspaperCount ${postinfo.newspaperCount}`)
+        console.log(`newspaper count in switch ${postinfo.newspaperCount}`)
+        //   })
         break;
       case "cage":
-      postinfo.cageCount = postinfo.cageCount + 1
-      alert(`caseCount ${postinfo.cageCount}`)
-      console.log(`cage count in switch ${postinfo.cageCount}`)
+        postinfo.cageCount = postinfo.cageCount + 1
+        alert(`caseCount ${postinfo.cageCount}`)
+        console.log(`cage count in switch ${postinfo.cageCount}`)
         break;
       default:
         alert(`no found ${emojiValue}`)
@@ -81,24 +81,23 @@ class Postings extends Component {
     this.updateCounts(postinfo);
   };
 
-  getDogGif = (allpost) => {
+  getDogGif = (postinfo) => {
     console.log('in getDogGif')
-    console.log(allpost)
+    console.log(postinfo)
     let arr = [
-      { name: 'waggy tails', image: "https://media.giphy.com/media/YB91IzHGyeeySRTIgy/giphy-downsized-large.gif", msg: `You received ${allpost.boneCount} bones` , text: allpost.text, num: allpost.boneCount },
-      { name: 'cage', image: "https://media.giphy.com/media/5bgS90uCmWoWp2hBvj/giphy.gif",  msg: `You received ${allpost.newspaperCount} newspapers`, text: allpost.text, num: allpost.newspaperCount },
-      { name: 'newspaper', image:"https://media.giphy.com/media/l3q2FiP4yhoOWzvEc/giphy.gif",  msg: `You received ${allpost.cageCount} cages`, text: allpost.text, num: allpost.cageCount }
+      { name: 'waggy tails', image: "https://media.giphy.com/media/YB91IzHGyeeySRTIgy/giphy-downsized-large.gif", msg: `You received ${postinfo.boneCount} bones`, text: postinfo.text, num: postinfo.boneCount },
+      { name: 'newspaper', image: "https://media.giphy.com/media/5bgS90uCmWoWp2hBvj/giphy.gif", msg: `You received ${postinfo.newspaperCount} newspapers`, text: postinfo.text, num: postinfo.newspaperCount },
+      { name: 'cage', image: "https://media.giphy.com/media/l3q2FiP4yhoOWzvEc/giphy.gif", msg: `You received ${postinfo.cageCount} cages`, text: postinfo.text, num: postinfo.cageCount }
     ];
     arr.sort(function (a, b) {
       return b.num - a.num;
     })
     console.log(arr);
-      // console.log(highestNum)
-      this.setState({highestNum: arr[0]})
-      // return highestNum;
+    // console.log(highestNum)
+    this.setState({ highestNum: arr[0] })
+    // return highestNum;
 
-    };
-
+  };
   updateCounts = (postinfo) => {
     console.log("in update counts");
     console.log(`bone count ${postinfo.boneCount}`);
@@ -132,14 +131,14 @@ class Postings extends Component {
         .catch(err => console.log(err));
     }
   };
-  handlebuttonclick = (allpost)=> {
+  handlebuttonclick = (allpost) => {
     console.log('in button click')
     console.log(allpost)
     this.toggle(this.toggle.bind(this));
     console.log("on way to getDogGif")
     console.log(allpost)
     this.getDogGif(allpost);
-    
+
   };
   // handle any changes to the input fields
   handleInputChange = event => {
@@ -182,9 +181,9 @@ class Postings extends Component {
               <TextArea value={this.state.authorpostings[0].text} />
 
             }
-              <img src = "https://media.giphy.com/media/YB91IzHGyeeySRTIgy/giphy-downsized-large.gif"/>
-              <h3>{this.state.highestNum.msg}</h3>
-            {/* <DisplayDog /> */}
+            <img src={this.state.highestNum.image} />
+            <h3>{this.state.highestNum.msg}</h3>           
+             {/* <DisplayDog /> */}
           </Col>
           <Col size="md-6 sm-12">
             {/* <Jumbotron> */}
@@ -194,17 +193,17 @@ class Postings extends Component {
               <List>
                 {this.state.allpostings.map(allpost => (
                   <ListItem key={allpost._id}>
-                  
+
                     {/* <button > 
                       <strong>
                         {allpost.text}
                       </strong>
                     </button> */}
-                    <Button color="blue" onClick= {(e)=>this.handlebuttonclick(allpost)} >{allpost.text}</Button>
+                    <Button color="blue" onClick={(e) => this.handlebuttonclick(allpost)} >{allpost.text}</Button>
                     <Modal isOpen={this.state.modal} toggle={this.toggle.bind(this)} >
                       <ModalHeader toggle={this.toggle.bind(this)}>{this.state.highestNum.text}</ModalHeader>
                       <ModalBody>
-                        <img src= {this.state.highestNum.image}/>
+                        <img src={this.state.highestNum.image} />
                         <h3>{this.state.highestNum.msg}</h3>
                       </ModalBody>
                       <ModalFooter>
