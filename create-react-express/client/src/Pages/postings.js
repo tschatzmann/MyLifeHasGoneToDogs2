@@ -201,8 +201,8 @@ class Postings extends Component {
                       </strong>
                     </button> */}
                     <Button color="blue" onClick= {(e)=>this.handlebuttonclick(allpost)} >{allpost.text}</Button>
-                    <Modal isOpen={this.state.modal} toggle={this.toggle} >
-                      <ModalHeader toggle={this.toggle}>{this.state.highestNum.text}</ModalHeader>
+                    <Modal isOpen={this.state.modal} toggle={this.toggle.bind(this)} >
+                      <ModalHeader toggle={this.toggle.bind(this)}>{this.state.highestNum.text}</ModalHeader>
                       <ModalBody>
                         <img src= {this.state.highestNum.image}/>
                         <h3>{this.state.highestNum.msg}</h3>
