@@ -21,10 +21,7 @@ class Postings extends Component {
   state = {
     authorpostings: [],
     allpostings: [],
-    highestNum: { name: null, image: "", msg: "You have 3 waggy tails", num: 0 },
-    // boneCount: 0,
-    //newspaperCount: 0,
-    // cageCount: 0,
+    highestNum: { name: null, image: "", msg: "", text: "", num: 0 },
     emojiValue: "",
     modal: false,
 
@@ -56,41 +53,41 @@ class Postings extends Component {
     // .then(res => this.setState({ authorpostings: res.data }))
       
   };
-  addUserReaction = (e, allpost, emojiValue) => {
+  addUserReaction = (e, postinfo, emojiValue) => {
     switch (emojiValue) {
       case "bone":
         // this.setState({ boneCount: this.state.boneCount + 1 }, () => {
-          allpost.boneCount = allpost.boneCount + 1
-          alert(`boneCount ${allpost.boneCount}`)
-          console.log(`bone count in switch ${allpost.boneCount}`)
+          postinfo.boneCount = postinfo.boneCount + 1
+          alert(`boneCount ${postinfo.boneCount}`)
+          console.log(`bone count in switch ${postinfo.boneCount}`)
         // })
 
         break;
       case "newspaper":
      //   this.setState({ newspaperCount: this.state.newspaperCount + 1 }, () => {
-      allpost.newspaperCount = allpost.newspaperCount + 1
-      alert(`newspaperCount ${allpost.newspaperCount}`)
-      console.log(`newspaper count in switch ${allpost.newspaperCount}`)
+      postinfo.newspaperCount = postinfo.newspaperCount + 1
+      alert(`newspaperCount ${postinfo.newspaperCount}`)
+      console.log(`newspaper count in switch ${postinfo.newspaperCount}`)
      //   })
         break;
       case "cage":
-      allpost.cageCount = allpost.cageCount + 1
-      alert(`caseCount ${allpost.cageCount}`)
-      console.log(`cage count in switch ${allpost.cageCount}`)
+      postinfo.cageCount = postinfo.cageCount + 1
+      alert(`caseCount ${postinfo.cageCount}`)
+      console.log(`cage count in switch ${postinfo.cageCount}`)
         break;
       default:
         alert(`no found ${emojiValue}`)
     }
-    this.updateCounts(allpost);
+    this.updateCounts(postinfo);
   };
 
   getDogGif = (allpost) => {
     console.log('in getDogGif')
     console.log(allpost)
     let arr = [
-      { name: 'waggy tails', image: "https://media.giphy.com/media/YB91IzHGyeeySRTIgy/giphy-downsized-large.gif", msg: `You received ${allpost.boneCount} bones` , num: allpost.boneCount },
-      { name: 'cage', image: "https://media.giphy.com/media/5bgS90uCmWoWp2hBvj/giphy.gif",  msg: `You received ${allpost.newspaperCount} newspapers`, num: allpost.newspaperCount },
-      { name: 'newspaper', image:"https://media.giphy.com/media/l3q2FiP4yhoOWzvEc/giphy.gif",  msg: `You received ${allpost.cageCount} cages`, num: allpost.cageCount }
+      { name: 'waggy tails', image: "https://media.giphy.com/media/YB91IzHGyeeySRTIgy/giphy-downsized-large.gif", msg: `You received ${allpost.boneCount} bones` , text: allpost.text, num: allpost.boneCount },
+      { name: 'cage', image: "https://media.giphy.com/media/5bgS90uCmWoWp2hBvj/giphy.gif",  msg: `You received ${allpost.newspaperCount} newspapers`, text: allpost.text, num: allpost.newspaperCount },
+      { name: 'newspaper', image:"https://media.giphy.com/media/l3q2FiP4yhoOWzvEc/giphy.gif",  msg: `You received ${allpost.cageCount} cages`, text: allpost.text, num: allpost.cageCount }
     ];
     arr.sort(function (a, b) {
       return b.num - a.num;
@@ -102,19 +99,19 @@ class Postings extends Component {
 
     };
 
-  updateCounts = (allpost) => {
+  updateCounts = (postinfo) => {
     console.log("in update counts");
-    console.log(`bone count ${allpost.boneCount}`);
-    console.log(`newspaper count ${allpost.newspaperCount}`);
-    console.log(allpost);
+    console.log(`bone count ${postinfo.boneCount}`);
+    console.log(`newspaper count ${postinfo.newspaperCount}`);
+    console.log(postinfo);
     const postingData = [{
-      id: allpost._id,
-      boneCount: allpost.boneCount,
-      newspaperCount: allpost.newspaperCount,
-      cageCount: allpost.cageCount,
+      id: postinfo._id,
+      boneCount: postinfo.boneCount,
+      newspaperCount: postinfo.newspaperCount,
+      cageCount: postinfo.cageCount,
     }]
     console.log(`before updatePost ${postingData}`);
-    console.log(`id ${allpost}`);
+    console.log(`id ${postinfo}`);
     apiPosting.updatePost(postingData)
       .then(res => this.loadPostings())
       .then(res => this.loadAuthorsPostings())
@@ -139,6 +136,8 @@ class Postings extends Component {
     console.log('in button click')
     console.log(allpost)
     this.toggle(this.toggle.bind(this));
+    console.log("on way to getDogGif")
+    console.log(allpost)
     this.getDogGif(allpost);
     
   };
@@ -201,9 +200,9 @@ class Postings extends Component {
                         {allpost.text}
                       </strong>
                     </button> */}
-                    <Button color="blue" onClick= {(e)=>this.handlebuttonclick({allpost})} >{allpost.text}</Button>
+                    <Button color="blue" onClick= {(e)=>this.handlebuttonclick(allpost)} >{allpost.text}</Button>
                     <Modal isOpen={this.state.modal} toggle={this.toggle} >
-                      <ModalHeader toggle={this.toggle}>{allpost.text}</ModalHeader>
+                      <ModalHeader toggle={this.toggle}>{this.state.highestNum.text}</ModalHeader>
                       <ModalBody>
                         <img src= {this.state.highestNum.image}/>
                         <h3>{this.state.highestNum.msg}</h3>
