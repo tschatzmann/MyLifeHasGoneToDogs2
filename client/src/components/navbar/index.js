@@ -51,12 +51,8 @@ class NavBar extends React.Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-            {/* <Route exact path="/"  component={Signin} />
-            <Route path="/posts" component={Posting} />
-            <Route path="/signin" component={Signin} />
-            <Route path="/signup" component={Signup} /> */}
               <NavItem>
-                <Link {...sessionStorage.getItem('authenticated') ? 'Posting' : null} to = "/posts">Posts</Link>
+                <Link to = "/posts">{sessionStorage.getItem('authenticated') ? 'Posting' : null}</Link>
               </NavItem>
               <NavItem>
                 <Link to="/signup">Signup</Link>
