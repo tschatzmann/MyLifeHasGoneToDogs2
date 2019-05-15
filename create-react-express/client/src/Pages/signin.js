@@ -27,7 +27,6 @@ class SignIn extends Component {
   // When the form is submitted, prevent the default event and alert the username and password
   handleFormSubmit = event => {
     event.preventDefault();
-    alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
     //this.setState({ username: "", password: "" });
     apiAuthor.getAuthor(this.state.username)
     .then(response => {

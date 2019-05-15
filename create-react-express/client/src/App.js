@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import { BrowserRouter as Router, Route, Link, Switch, withRouter } from 'react-router-dom'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 //import logo from "./logo.svg";
-import Home from "./pages/home";
 import Posting from './pages/postings';
 import Signin from "./pages/signin";
 import Signup from "./pages/signup";
