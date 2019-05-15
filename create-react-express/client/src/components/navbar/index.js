@@ -11,7 +11,9 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem } from 'reactstrap';
-  import {Link} from 'react-router-dom';
+  import {Link, withRouter} from 'react-router-dom';
+
+
   //
 import Posting from '../../pages/postings';
 import Signin from "../../pages/signin";
@@ -33,6 +35,7 @@ class NavBar extends React.Component {
     });
   }
   handleblinkclick = event => {
+    console.log('link clicked');
     event.preventDefault();
       sessionStorage.setItem('authenticated', false);
         this.props.history.push({
@@ -59,7 +62,7 @@ class NavBar extends React.Component {
                 <Link to="/signup">Signup</Link>
               </NavItem>
               <NavItem>
-                  <Link onClick={(e) => this.handleblinkclick()}>Signout</Link>
+                  <Link onClick={(e) => this.handleblinkclick(e)}>Signout</Link>
               </NavItem>
             </Nav>
           </Collapse>
@@ -68,4 +71,4 @@ class NavBar extends React.Component {
     );
   }
 }
-export default NavBar;
+export default withRouter (NavBar);
