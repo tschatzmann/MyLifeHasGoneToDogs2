@@ -3,12 +3,12 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Col, Row, Container } from "../components/grid";
 import { TextArea } from "../components/postingsdetail"
 import { List, ListItem } from "../components/list";
-import { BoneButton } from "../components/Emoji/bone";
-import { NewspaperButton } from "../components/Emoji/newspaper";
-import { CageButton } from "../components/Emoji/cage";
+import { BoneButton } from "../components/emoji/bone";
+import { NewspaperButton } from "../components/emoji/newspaper";
+import { CageButton } from "../components/emoji/cage";
 //import { Input, TextArea, FormBtn } from "../components/form";
 import apiPosting from "../utils/apiPosting";
-import Jumbotron from "../components/Dogjumbotron"
+import Jumbotron from "../components/dogheader"
 
 
 
