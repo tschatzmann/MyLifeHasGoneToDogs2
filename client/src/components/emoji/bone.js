@@ -1,10 +1,10 @@
 import React from "react";
-import "./style.css";
+import "./assets/css/style.css";
 
 export function BoneButton(props) {
   return (
     // <Emojify>
-                <button  style={{borderColor: "transparent", backgroundColor: "transparent"}} onClick={(e) => props.addUserReaction(e, props.allpost, props.emojiValue )} ><img className= "emoji-btn doghouse" style={{width: 40, height: 40, textalignright: -10, paddingLeft: -10}}src={require('./assets/images/waggytail.jpg')} alt="waggy tail"/></button>
+                <button   className = "emoji-btn" >onClick={(e) => props.addUserReaction(e, props.allpost, props.emojiValue )} ><img className= "doghieght" style={{ textalignright: -10, paddingLeft: -10}}src={require('./assets/images/waggytail.jpg')} alt="waggy tail"/></button>
 
     // </Emojify>
 );
