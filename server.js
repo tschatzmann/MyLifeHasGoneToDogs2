@@ -1,4 +1,4 @@
-require('dotenv').config()
+
 const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
@@ -14,13 +14,11 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-var databaseUrl = "mongodb://localhost/MyLifeDogsDB";
-
 if (process.env.MONGODB_URI) {
 	mongoose.connect(process.env.MONGODB_URI);
 }
 else {
-	mongoose.connect(databaseUrl, { useNewUrlParser: true, useCreateIndex: true });
+	mongoose.connect("mongodb://localhost/MyLifeDogsDB", { useNewUrlParser: true, useCreateIndex: true, });
 };
 
 app.use(express.urlencoded({ extended: true }));
