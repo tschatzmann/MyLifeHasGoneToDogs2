@@ -1,11 +1,12 @@
 import React from 'react';
 import { Jumbotron, Col, Row } from 'reactstrap';
+import "./css/style.css"
 
 
 const dogJumbotron = (props) => {
     return (
         <div>
-            <Jumbotron style={{background: "aqua"}}> 
+            <Jumbotron className= "headerstyle"> 
             <Row>
                 <Col lg="12" md="1" style={{fontSize: 40}} className="text-center"><span>The place where you can vent lifes frustrations and celebrate achievements</span></Col>
             </Row>

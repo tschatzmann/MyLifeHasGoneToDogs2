@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import signinBtn from "../components/signinBtn";
 import apiAuthor from "../utils/apiAuthor";
-import Jumbotron from "../components/Dogjumbotron";
+import Jumbotron from "../components/dogheader";
 
 class Signup extends Component {
   // Setting the initial values of this.state.username and this.state.password
@@ -39,8 +39,6 @@ alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
         {/* <h1>Signup</h1> */}
         <Jumbotron/>
       <form>
-        <p>Username: {this.state.username}</p>
-        <p>Password: {this.state.password}</p>
         <input
           type="text"
           placeholder="Username"

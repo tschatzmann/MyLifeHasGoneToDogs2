@@ -12,12 +12,7 @@ import {
   DropdownMenu,
   DropdownItem } from 'reactstrap';
   import {Link, withRouter} from 'react-router-dom';
-
-
-  //
-import Posting from '../../pages/postings';
-import Signin from "../../pages/signin";
-import Signup from "../../pages/signup";
+  import "./css/style.css"
 
 
 class NavBar extends React.Component {
@@ -52,13 +47,13 @@ class NavBar extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <Link to = "/posts">{sessionStorage.getItem('authenticated') ? 'Posting' : null}</Link>
+                <Link className = "pagelinks" to = "/posts">{sessionStorage.getItem('authenticated') ? 'Posting' : null}</Link>
               </NavItem>
               <NavItem>
-                <Link to="/signup">Signup</Link>
+                <Link className = "pagelinks" to="/signup">Signup</Link>
               </NavItem>
               <NavItem>
-                  <Link onClick={(e) => this.handleblinkclick(e)}>Signout</Link>
+                  <Link className = "pagelinks" onClick={(e) => this.handleblinkclick(e)}>Signout</Link>
               </NavItem>
             </Nav>
           </Collapse>
