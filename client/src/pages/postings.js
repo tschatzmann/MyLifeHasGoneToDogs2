@@ -186,13 +186,7 @@ class Postings extends Component {
               <List>
                 {this.state.allpostings.map(allpost => (
                   <ListItem key={allpost._id}>
-
-                    {/* <button > 
-                      <strong>
-                        {allpost.text}
-                      </strong>
-                    </button> */}
-                    <Button color="blue" onClick={(e) => this.handlebuttonclick(allpost)} >{allpost.text}</Button>
+                    <Button color="blue" onClick={(e) => this.handlebuttonclick(allpost)} style={{color: "blue"}}> {allpost.text}</Button>
                     <Modal isOpen={this.state.modal} toggle={this.toggle.bind(this)} >
                       <ModalHeader toggle={this.toggle.bind(this)}>{this.state.highestNum.text}</ModalHeader>
                       <ModalBody>
@@ -204,10 +198,6 @@ class Postings extends Component {
                       </ModalFooter>
                     </Modal>
                     {/* <h4>{allpost.boneCount} {allpost.newspaperCount} {allpost.cageCount}</h4> */}
-                    {/* <Emojify>
-                      <button onClick={(e) => this.addUserReaction(e, allpost._id, "bone")} className="emoji-btn" role="img" aria-label="bone">🦴</button>
-                    </Emojify>
-                    <BoneButton onClick={(e) => this.addUserReaction(e, allpost._id, "bone")}/> */}
                     <BoneButton addUserReaction={this.addUserReaction} allpost={allpost} emojiValue={"bone"} />
                     <NewspaperButton addUserReaction={this.addUserReaction} allpost={allpost} emojiValue={"newspaper"} />
                     <CageButton addUserReaction={this.addUserReaction} allpost={allpost} emojiValue={"cage"} />
