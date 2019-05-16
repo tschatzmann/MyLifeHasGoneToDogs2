@@ -53,7 +53,7 @@ class NavBar extends React.Component {
                 <Link className = "pagelinks" to="/signup">Signup</Link>
               </NavItem>
               <NavItem>
-                  <Link className = "pagelinks" onClick={(e) => this.handleblinkclick(e)}>Signout</Link>
+                  <Link className = "pagelinks" onClick={(e) => this.handleblinkclick(e)}>{sessionStorage.getItem('authenticated') ? 'Signout' : null}</Link>
               </NavItem>
             </Nav>
           </Collapse>
