@@ -3,7 +3,7 @@ import React, { Component } from "react";
 // import LoginBtn from "../components/LoginBtn";
 import Axios from "axios";
 import apiAuthor from "../utils/apiAuthor";
-import Jumbotron from "../components/Dogjumbotron"
+import Jumbotron from "../components/dogheader"
 
 class SignIn extends Component {
   // Setting the initial values of this.state.username and this.state.password
@@ -27,7 +27,6 @@ class SignIn extends Component {
   // When the form is submitted, prevent the default event and alert the username and password
   handleFormSubmit = event => {
     event.preventDefault();
-    alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
     //this.setState({ username: "", password: "" });
     apiAuthor.getAuthor(this.state.username)
     .then(response => {
@@ -57,8 +56,6 @@ class SignIn extends Component {
               {/* <div className="App"> */}
     <Jumbotron/>
       <form>
-        <p>Username: {this.state.username}</p>
-        <p>Password: {this.state.password}</p>
         <input
           type="text"
           placeholder="Username"

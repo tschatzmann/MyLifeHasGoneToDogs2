@@ -1,19 +1,14 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import Emojify from 'react-emojione';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import axios from "axios";
 import { Col, Row, Container } from "../components/grid";
-import { TextArea, DisplayDog } from "../components/postingsdetail"
+import { TextArea } from "../components/postingsdetail"
 import { List, ListItem } from "../components/list";
-import { BoneButton } from "../components/Emoji/bone";
-import { NewspaperButton } from "../components/Emoji/newspaper";
-import { CageButton } from "../components/Emoji/cage";
+import { BoneButton } from "../components/emoji/bone";
+import { NewspaperButton } from "../components/emoji/newspaper";
+import { CageButton } from "../components/emoji/cage";
 //import { Input, TextArea, FormBtn } from "../components/form";
 import apiPosting from "../utils/apiPosting";
-//import { set } from "mongoose";
-import style from "../components/Emoji/style.css";
-import Jumbotron from "../components/Dogjumbotron"
+import Jumbotron from "../components/dogheader"
 
 
 
@@ -59,7 +54,6 @@ class Postings extends Component {
       case "bone":
         // this.setState({ boneCount: this.state.boneCount + 1 }, () => {
         postinfo.boneCount = postinfo.boneCount + 1
-        alert(`boneCount ${postinfo.boneCount}`)
         console.log(`bone count in switch ${postinfo.boneCount}`)
         // })
 
@@ -67,17 +61,14 @@ class Postings extends Component {
       case "newspaper":
         //   this.setState({ newspaperCount: this.state.newspaperCount + 1 }, () => {
         postinfo.newspaperCount = postinfo.newspaperCount + 1
-        alert(`newspaperCount ${postinfo.newspaperCount}`)
         console.log(`newspaper count in switch ${postinfo.newspaperCount}`)
         //   })
         break;
       case "cage":
         postinfo.cageCount = postinfo.cageCount + 1
-        alert(`caseCount ${postinfo.cageCount}`)
         console.log(`cage count in switch ${postinfo.cageCount}`)
         break;
       default:
-        alert(`no found ${emojiValue}`)
     }
     this.updateCounts(postinfo);
   };
@@ -86,7 +77,7 @@ class Postings extends Component {
     console.log('in getDogGif')
     console.log(postinfo)
     let arr = [
-      { name: 'waggy tails', image: "https://media.giphy.com/media/YB91IzHGyeeySRTIgy/giphy-downsized-large.gif", msg: `You received ${postinfo.boneCount} bones`, text: postinfo.text, num: postinfo.boneCount },
+      { name: 'waggy tails', image: "https://media.giphy.com/media/YB91IzHGyeeySRTIgy/giphy-downsized-large.gif", msg: `You received ${postinfo.boneCount} waggy tails`, text: postinfo.text, num: postinfo.boneCount },
       { name: 'newspaper', image: "https://media.giphy.com/media/5bgS90uCmWoWp2hBvj/giphy.gif", msg: `You received ${postinfo.newspaperCount} newspapers`, text: postinfo.text, num: postinfo.newspaperCount },
       { name: 'cage', image: "https://media.giphy.com/media/l3q2FiP4yhoOWzvEc/giphy.gif", msg: `You received ${postinfo.cageCount} cages`, text: postinfo.text, num: postinfo.cageCount }
     ];
@@ -156,12 +147,12 @@ class Postings extends Component {
     console.log(this.props)
     return (
       <Container fluid>
-      <Jumbotron/>
+        <Jumbotron />
         <Row>
           <Col size="md-6">
             {/* <Jumbotron/> */}
-             <h1>My Postings</h1>
-            {/* </Jumbotron> */} 
+            <h1>My Postings</h1>
+            {/* </Jumbotron> */}
             {/* <form> */}
             <input
               type="text"
@@ -183,9 +174,9 @@ class Postings extends Component {
               <TextArea value={this.state.authorpostings[0].text} />
 
             }
-            <img src={this.state.highestNum.image} />
-            <h3>{this.state.highestNum.msg}</h3>           
-             {/* <DisplayDog /> */}
+            <img src={this.state.highestNum.image} alt="dog" />
+            <h3>{this.state.highestNum.msg}</h3>
+            {/* <DisplayDog /> */}
           </Col>
           <Col size="md-6 sm-12">
             {/* <Jumbotron> */}
@@ -205,14 +196,14 @@ class Postings extends Component {
                     <Modal isOpen={this.state.modal} toggle={this.toggle.bind(this)} >
                       <ModalHeader toggle={this.toggle.bind(this)}>{this.state.highestNum.text}</ModalHeader>
                       <ModalBody>
-                        <img src={this.state.highestNum.image} />
+                        <img src={this.state.highestNum.image} alt="dog" />
                         <h3>{this.state.highestNum.msg}</h3>
                       </ModalBody>
                       <ModalFooter>
                         <Button color="primary" onClick={this.toggle.bind(this)}>OK</Button>{' '}
                       </ModalFooter>
                     </Modal>
-                    <h4>{allpost.boneCount} {allpost.newspaperCount} {allpost.cageCount}</h4>
+                    {/* <h4>{allpost.boneCount} {allpost.newspaperCount} {allpost.cageCount}</h4> */}
                     {/* <Emojify>
                       <button onClick={(e) => this.addUserReaction(e, allpost._id, "bone")} className="emoji-btn" role="img" aria-label="bone">🦴</button>
                     </Emojify>
