@@ -10,51 +10,55 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap';
-  import {Link, withRouter} from 'react-router-dom';
-  import "./css/style.css"
+  DropdownItem
+} from 'reactstrap';
+import { Link, withRouter } from 'react-router-dom';
+import "./css/style.css"
 
 
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
 
-    this.toggle = this.toggle.bind(this);
+    this.toggleNavbar = this.toggleNavbar.bind(this);
     this.state = {
-      isOpen: false
+      collapsed: true
     };
   }
-  toggle() {
+
+  toggleNavbar() {
     this.setState({
-      isOpen: !this.state.isOpen
+      collapsed: !this.state.collapsed
     });
   }
+
   handleblinkclick = event => {
     console.log('link clicked');
     event.preventDefault();
-      sessionStorage.setItem('authenticated', false);
-        this.props.history.push({
-          pathname: '/signin',
-        });
-    }
+    sessionStorage.setItem('authenticated', false);
+    this.props.history.push({
+      pathname: '/signin',
+    });
+  }
 
   render() {
     return (
       <div>
-        <Navbar className="navback" expand="md">
-          <NavbarBrand href="/">Welcome</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
+        <Navbar color="faded" light>
+          <NavbarBrand href="/" className="mr-auto">MY LIFE HAS GONE TO THE DOGS</NavbarBrand>
+          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+          <Collapse isOpen={!this.state.collapsed} navbar>
+            <Nav navbar>
               <NavItem>
-                <Link className = "pagelinks" to = "/posts">{sessionStorage.getItem('authenticated') ? 'Posting' : null}</Link>
+                <Link to="/posts">{sessionStorage.getItem('authenticated') ? 'Posting' : null}</Link>
               </NavItem>
               <NavItem>
-                <Link className = "pagelinks" to="/signup">Signup</Link>
+                <Link to="/signup">Sign Up</Link>
               </NavItem>
               <NavItem>
-                  <Link className = "pagelinks" onClick={(e) => this.handleblinkclick(e)}>{sessionStorage.getItem('authenticated') ? 'Signout' : null}</Link>
+                <Link to="/signin">Sign In</Link>
               </NavItem>
+
             </Nav>
           </Collapse>
         </Navbar>
@@ -62,4 +66,4 @@ class NavBar extends React.Component {
     );
   }
 }
-export default withRouter (NavBar);
+export default withRouter(NavBar);
