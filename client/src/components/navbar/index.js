@@ -42,7 +42,7 @@ class NavBar extends React.Component {
     return (
       <div>
         <Navbar className="navback" expand="md">
-          <NavbarBrand href="/">My Life Has Gone To The Dogs</NavbarBrand>
+          <NavbarBrand href="/">Welcome</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>

@@ -8,7 +8,7 @@ const dogJumbotron = (props) => {
         <div>
             <Jumbotron className= "headerstyle"> 
             <Row>
-                <Col lg="12" md="1" style={{fontSize: 40}} className="text-center"><span>The place where you can vent lifes frustrations and celebrate achievements</span></Col>
+                <Col lg="12" md="1" style={{fontSize: 40}} className="text-center"><span>The place where you can vent life's frustrations and celebrate achievements</span></Col>
             </Row>
                     {/* <h1  className="center-text">The place where you can vent lifes frustrations and celebrate achievements</h1> */}
                     {/* <h1 className="App-intro">
