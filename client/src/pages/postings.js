@@ -77,7 +77,7 @@ class Postings extends Component {
     console.log('in getDogGif')
     console.log(postinfo)
     let arr = [
-      { name: 'waggy tails', image: "https://media.giphy.com/media/YB91IzHGyeeySRTIgy/giphy-downsized-large.gif", msg: `You received ${postinfo.boneCount} bones`, text: postinfo.text, num: postinfo.boneCount },
+      { name: 'waggy tails', image: "https://media.giphy.com/media/YB91IzHGyeeySRTIgy/giphy-downsized-large.gif", msg: `You received ${postinfo.boneCount} waggy tails`, text: postinfo.text, num: postinfo.boneCount },
       { name: 'newspaper', image: "https://media.giphy.com/media/5bgS90uCmWoWp2hBvj/giphy.gif", msg: `You received ${postinfo.newspaperCount} newspapers`, text: postinfo.text, num: postinfo.newspaperCount },
       { name: 'cage', image: "https://media.giphy.com/media/l3q2FiP4yhoOWzvEc/giphy.gif", msg: `You received ${postinfo.cageCount} cages`, text: postinfo.text, num: postinfo.cageCount }
     ];
@@ -147,12 +147,12 @@ class Postings extends Component {
     console.log(this.props)
     return (
       <Container fluid>
-      <Jumbotron/>
+        <Jumbotron />
         <Row>
           <Col size="md-6">
             {/* <Jumbotron/> */}
-             <h1>My Postings</h1>
-            {/* </Jumbotron> */} 
+            <h1>My Postings</h1>
+            {/* </Jumbotron> */}
             {/* <form> */}
             <input
               type="text"
@@ -174,9 +174,9 @@ class Postings extends Component {
               <TextArea value={this.state.authorpostings[0].text} />
 
             }
-            <img src={this.state.highestNum.image} alt="dog"/>
-            <h3>{this.state.highestNum.msg}</h3>           
-             {/* <DisplayDog /> */}
+            <img src={this.state.highestNum.image} alt="dog" />
+            <h3>{this.state.highestNum.msg}</h3>
+            {/* <DisplayDog /> */}
           </Col>
           <Col size="md-6 sm-12">
             {/* <Jumbotron> */}
@@ -196,14 +196,14 @@ class Postings extends Component {
                     <Modal isOpen={this.state.modal} toggle={this.toggle.bind(this)} >
                       <ModalHeader toggle={this.toggle.bind(this)}>{this.state.highestNum.text}</ModalHeader>
                       <ModalBody>
-                        <img src={this.state.highestNum.image} alt="dog"/>
+                        <img src={this.state.highestNum.image} alt="dog" />
                         <h3>{this.state.highestNum.msg}</h3>
                       </ModalBody>
                       <ModalFooter>
                         <Button color="primary" onClick={this.toggle.bind(this)}>OK</Button>{' '}
                       </ModalFooter>
                     </Modal>
-                    <h4>{allpost.boneCount} {allpost.newspaperCount} {allpost.cageCount}</h4>
+                    {/* <h4>{allpost.boneCount} {allpost.newspaperCount} {allpost.cageCount}</h4> */}
                     {/* <Emojify>
                       <button onClick={(e) => this.addUserReaction(e, allpost._id, "bone")} className="emoji-btn" role="img" aria-label="bone">🦴</button>
                     </Emojify>

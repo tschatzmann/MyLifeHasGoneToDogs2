@@ -1,6 +1,6 @@
 import React from "react";
 // import Emojify from 'react-emojione';
-import "./style.css";
+
 
 
 
