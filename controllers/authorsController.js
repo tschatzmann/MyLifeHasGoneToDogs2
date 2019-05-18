@@ -15,7 +15,10 @@ module.exports = {
     db.Author
       .findOne({username: req.params.username})
       .then(dbModel => res.json(dbModel))
-      .catch(err => console.log(err));
+      .catch((err) => {
+        console.log(err)
+        res.status(404).json({ usernotfound: "User not found" })
+      })
   },
   getAuthorsPopulatePostings: function(req,res) {
     db.Author.find({})

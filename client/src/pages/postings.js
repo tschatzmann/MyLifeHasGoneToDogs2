@@ -10,18 +10,28 @@ import { CageButton } from "../components/emoji/cage";
 import apiPosting from "../utils/apiPosting";
 import Jumbotron from "../components/dogheader"
 
-
+const origPosting =  {
+  authorpostings: [],
+  allpostings: [],
+  highestNum:{ name: null, image: "https://media.giphy.com/media/SIKe5cA5q3cvTSds0a/giphy.gif", msg: "Your post does not a dog count", text: "", num: 0 },
+  authorhighestNum:{ name: null, image: "https://media.giphy.com/media/SIKe5cA5q3cvTSds0a/giphy.gif", msg: "Your post does not a dog count", text: "", num: 0 },
+  emojiValue: "",
+  modal: false,
+};
 
 class Postings extends Component {
+
 
   state = {
     authorpostings: [],
     allpostings: [],
-    highestNum: { name: null, image: "", msg: "", text: "", num: 0 },
+    highestNum:{ name: null, image: "https://media.giphy.com/media/SIKe5cA5q3cvTSds0a/giphy.gif", msg: "Your post does not a dog count", text: "", num: 0 },
+    authorhighestNum:{ name: null, image: "https://media.giphy.com/media/SIKe5cA5q3cvTSds0a/giphy.gif", msg: "Your post does not a dog count", text: "", num: 0 },
     emojiValue: "",
     modal: false,
 
   };
+
 
   toggle() {
     this.setState(prevState => ({
@@ -33,7 +43,23 @@ class Postings extends Component {
     this.loadAuthorsPostings();
 
   };
+  togglehighestNum(posttype){
+   this.setState( origState=>{
+     console.log(`in toggle ${posttype}`)
+     switch (posttype){
+       case "all":
+         console.log(origPosting.highestNum)
+          this.setState({highestNum: origPosting.highestNum})
+          console.log(this.state.highestNum)
+          break;
+      case "author":
+          this.setState({authorhighestNum: origPosting.authorhighestNum})
+          break;
+      default:
+     }
 
+   })
+ }
 
   loadPostings = () => {
     console.log("at loadpostings")
@@ -45,7 +71,7 @@ class Postings extends Component {
     console.log("at loadauthorpostings")
     apiPosting.getPopulatePostings(this.props.location.state.authorid)
       .then(res => this.setState({ authorpostings: res.data }))
-      .then(res => this.getDogGif(this.state.authorpostings[0]));
+      .then(res => this.getDogGif(this.state.authorpostings[0], "author"));
     // .then(res => this.setState({ authorpostings: res.data }))
 
   };
@@ -73,9 +99,14 @@ class Postings extends Component {
     this.updateCounts(postinfo);
   };
 
-  getDogGif = (postinfo) => {
+  getDogGif = (postinfo, posttype) => {
+    let totalcounts = 0;
     console.log('in getDogGif')
     console.log(postinfo)
+  console.log(`posttype ${posttype}`)
+    // this.togglehighestNum(posttype);
+    console.log(this.state.highestNum);
+    console.log(this.state.authorhighestNum);
     let arr = [
       { name: 'waggy tails', image: "https://media.giphy.com/media/YB91IzHGyeeySRTIgy/giphy-downsized-large.gif", msg: `You received ${postinfo.boneCount} waggy tails`, text: postinfo.text, num: postinfo.boneCount },
       { name: 'newspaper', image: "https://media.giphy.com/media/5bgS90uCmWoWp2hBvj/giphy.gif", msg: `You received ${postinfo.newspaperCount} newspapers`, text: postinfo.text, num: postinfo.newspaperCount },
@@ -84,10 +115,30 @@ class Postings extends Component {
     arr.sort(function (a, b) {
       return b.num - a.num;
     })
-    console.log(arr);
+    totalcounts = (postinfo.boneCount + postinfo.newspaperCount + postinfo.cageCount)
+    console.log(totalcounts);
+    console.log(arr[0]);
     // console.log(highestNum)
-    this.setState({ highestNum: arr[0] })
-    // return highestNum;
+    if (totalcounts > 0){
+      switch (posttype) {
+        case  "author":
+            this.setState({authorhighestNum: arr[0]});
+            console.log("at set author");
+        break;
+        case "all":
+          console.log('arr in all case')
+            console.log(arr[0]);
+            this.setState({ highestNum: arr[0] });
+            console.log(this.state.highestNum)
+            console.log("at set all");
+          break;
+          default:
+  
+      }
+    }else{
+      console.log(`posttype: ${posttype} totalcounts ${totalcounts}`)
+      this.togglehighestNum(posttype);
+    }
 
   };
   updateCounts = (postinfo) => {
@@ -129,7 +180,7 @@ class Postings extends Component {
     this.toggle(this.toggle.bind(this));
     console.log("on way to getDogGif")
     console.log(allpost)
-    this.getDogGif(allpost);
+    this.getDogGif(allpost, "all");
 
   };
   // handle any changes to the input fields
@@ -174,8 +225,8 @@ class Postings extends Component {
               <TextArea value={this.state.authorpostings[0].text} />
 
             }
-            <img src={this.state.highestNum.image} alt="dog" />
-            <h3>{this.state.highestNum.msg}</h3>
+            <img src={this.state.authorhighestNum.image} alt="dog" />
+            <h3>{this.state.authorhighestNum.msg}</h3>
             {/* <DisplayDog /> */}
           </Col>
           <Col size="md-6 sm-12">
