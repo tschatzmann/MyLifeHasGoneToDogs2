@@ -4,12 +4,44 @@ import signinBtn from "../components/signinBtn";
 import apiAuthor from "../utils/apiAuthor";
 import Jumbotron from "../components/dogheader";
 
+
+let  validationErrorEmail = false;
+let   validationErrorPassword = false;
+
 class Signup extends Component {
   // Setting the initial values of this.state.username and this.state.password
   state = {
     username: "",
     password: "",
     email: ""
+  };
+
+
+  verifyEmail(email){
+    console.log('in email validation')
+    let pattern = /^[a-zA-Z0-9\-_]+(\.[a-zA-Z0-9\-_]+)*@[a-z0-9]+(\-[a-z0-9]+)*(\.[a-z0-9]+(\-[a-z0-9]+)*)*\.[a-z]{2,4}$/;
+    if (pattern.test(email)) {
+       validationErrorEmail = false;
+    } else {
+        alert('Bad email address: ' + email);
+        validationErrorEmail = true;
+    }
+
+        console.log(validationErrorEmail);
+    };
+
+  verifyPassword(){
+    console.log("in password validataion")
+    if (this.state.password.length < 6){
+      // alert('Password must be at least 6 characters');
+      validationErrorPassword = true
+      console.log(validationErrorPassword)
+      }
+    }
+
+  resetValidationError(){
+    validationErrorEmail =  false
+    validationErrorPassword= false
   };
 
   // handle any changes to the input fields
@@ -27,10 +59,43 @@ class Signup extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     console.log("trying o register");
-    apiAuthor.saveAuthor(this.state)
-    .then(response => console.log(response));
-alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
-   // this.setState({ username: "", password: "" });
+    console.log(this.state.email);
+    this.verifyEmail(this.state.email);
+    this.verifyPassword();
+    console.log(`${validationErrorPassword} ${validationErrorPassword}`);
+    if (validationErrorEmail == false && validationErrorPassword == false) {
+      apiAuthor.saveAuthor(this.state)
+      .then(response => {
+        console.log('back from save')
+        console.log(response)
+        if (response.data == null){
+          alert("user not saved")
+        }
+        else{
+          alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
+          // this.setState({ username: "", password: "" });
+       
+        } 
+      } )
+      .catch(error => {
+        console.log(error);
+        alert(`user ${this.state.username} or email ${this.state.email} already exists`)
+      })
+    }
+    else{
+      let emailMsg = "";
+      let passwordMsg = "";
+        if (validationErrorEmail == true){
+          emailMsg = "Please enter a valid email"
+        };
+
+        if (validationErrorPassword== true){
+          passwordMsg = "Password must be at least 6 characters"
+        };
+
+      alert(`${emailMsg}  ${passwordMsg}`)
+    }
+
   };
 
   render() {
