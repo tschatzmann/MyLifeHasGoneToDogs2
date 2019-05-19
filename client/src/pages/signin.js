@@ -30,25 +30,29 @@ class SignIn extends Component {
     //this.setState({ username: "", password: "" });
     apiAuthor.getAuthor(this.state.username)
     .then(response => {
-      if (response.data.password != this.state.password) {
-        alert('The username or password is incorrect')
-      } else {
-      // if check for password is good run code below 
-      // if password does not match alert that login is incorrect
-      sessionStorage.setItem('authenticated', true);
-      this.setState({
-        authorid: response.data._id,
-      }, () => {
-        this.props.history.push({
-          pathname: '/posts',
-          state: { authorid: this.state.authorid}
+      console.log(response)
+      if (response.data == null){
+        alert("user not fouund");
+        this.setState({ username: "", password: "" });
+      }else{
+        if (response.data.password != this.state.password) {
+          alert('The username or password is incorrect')
+        } else {
+        // if check for password is good run code below 
+        // if password does not match alert that login is incorrect
+        sessionStorage.setItem('authenticated', true);
+        this.setState({
+          authorid: response.data._id,
+        }, () => {
+          this.props.history.push({
+            pathname: '/posts',
+            state: { authorid: this.state.authorid}
+          });
         });
-      });
-    }
+      }  
+      }
     });
   };
-
-
 
   render() {
     return (

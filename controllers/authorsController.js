@@ -15,7 +15,10 @@ module.exports = {
     db.Author
       .findOne({username: req.params.username})
       .then(dbModel => res.json(dbModel))
-      .catch(err => console.log(err));
+      .catch((err) => {
+        console.log(err)
+        res.status(404).json({ usernotfound: "User not found" })
+      })
   },
   getAuthorsPopulatePostings: function(req,res) {
     db.Author.find({})
@@ -35,7 +38,7 @@ module.exports = {
     db.Author
       .create(req.body)
       .then(dbModel => res.json(dbModel))
-      .catch(err => console.log(err));
+      .catch(err => res.status(422).json({usernotsaved: "user was not saved"}));
       },
   update: function(req, res) {
     db.Author
@@ -48,6 +51,6 @@ module.exports = {
       .findById({ _id: req.params.id })
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .catch(err => res.status(422).json({usernotsaved: "user was not deleted"}));
   }
 };
