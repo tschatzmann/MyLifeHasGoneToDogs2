@@ -107,6 +107,9 @@ class Postings extends Component {
     // this.togglehighestNum(posttype);
     console.log(this.state.highestNum);
     console.log(this.state.authorhighestNum);
+    if (postinfo == null){
+      return;
+    }
     let arr = [
       { name: 'waggy tails', image: "https://media.giphy.com/media/YB91IzHGyeeySRTIgy/giphy-downsized-large.gif", msg: `You received ${postinfo.boneCount} waggy tails`, text: postinfo.text, num: postinfo.boneCount },
       { name: 'newspaper', image: "https://media.giphy.com/media/5bgS90uCmWoWp2hBvj/giphy.gif", msg: `You received ${postinfo.newspaperCount} newspapers`, text: postinfo.text, num: postinfo.newspaperCount },
