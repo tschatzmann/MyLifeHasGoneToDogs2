@@ -9,6 +9,7 @@ import { CageButton } from "../components/emoji/cage";
 //import { Input, TextArea, FormBtn } from "../components/form";
 import apiPosting from "../utils/apiPosting";
 import Jumbotron from "../components/dogheader"
+import "./assets/css/style.css"
 
 const origPosting = {
   authorpostings: [],
