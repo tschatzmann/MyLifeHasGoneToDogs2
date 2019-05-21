@@ -1,8 +1,4 @@
 import React from "react";
-// import Emojify from 'react-emojione';
-
-
-
 
 export function CageButton(props) {
   return (
