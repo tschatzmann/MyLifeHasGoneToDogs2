@@ -219,15 +219,18 @@ class Postings extends Component {
                 <h3>{this.state.authorhighestNum.msg}</h3>
               </div>
             }
-
-
-            <h1> Add a new post</h1>
+            <br></br>
+            <br></br>
+            <br></br>
+            <div className="container" style={{backgroundColor: "#3A506B", width: '700px', height: '250px'}}>
+            <br></br>
+            <h1>Add a new post</h1>
             <TextArea name="text" placeholder="text" value={this.state.text} onChange={this.handleInputChange} />
 
             <button onClick={this.handleFormSubmit}>
               Submit Posting
               </button>
-
+              </div>
             {/* </form> */}
 
 
