@@ -29,53 +29,53 @@ class SignIn extends Component {
     event.preventDefault();
     //this.setState({ username: "", password: "" });
     apiAuthor.getAuthor(this.state.username)
-    .then(response => {
-      console.log(response)
-      if (response.data == null){
-        alert("user not fouund");
-        this.setState({ username: "", password: "" });
-      }else{
-        if (response.data.password != this.state.password) {
-          alert('The username or password is incorrect')
+      .then(response => {
+        console.log(response)
+        if (response.data == null) {
+          alert("user not fouund");
+          this.setState({ username: "", password: "" });
         } else {
-        // if check for password is good run code below 
-        // if password does not match alert that login is incorrect
-        sessionStorage.setItem('authenticated', true);
-        this.setState({
-          authorid: response.data._id,
-        }, () => {
-          this.props.history.push({
-            pathname: '/posts',
-            state: { authorid: this.state.authorid}
-          });
-        });
-      }  
-      }
-    });
+          if (response.data.password != this.state.password) {
+            alert('The username or password is incorrect')
+          } else {
+            // if check for password is good run code below 
+            // if password does not match alert that login is incorrect
+            sessionStorage.setItem('authenticated', true);
+            this.setState({
+              authorid: response.data._id,
+            }, () => {
+              this.props.history.push({
+                pathname: '/posts',
+                state: { authorid: this.state.authorid }
+              });
+            });
+          }
+        }
+      });
   };
 
   render() {
     return (
       <main>
-              {/* <div className="App"> */}
-    <Jumbotron/>
-      <form>
-        <input
-          type="text"
-          placeholder="Username"
-          name="username"
-          value={this.state.username}
-          onChange={this.handleInputChange}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          name="password"
-          value={this.state.password}
-          onChange={this.handleInputChange}
-        />
-        <button onClick={this.handleFormSubmit}>Signin</button>
-      </form>
+        {/* <div className="App"> */}
+        <Jumbotron />
+        <form>
+          <input
+            type="text"
+            placeholder="Username"
+            name="username"
+            value={this.state.username}
+            onChange={this.handleInputChange}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            value={this.state.password}
+            onChange={this.handleInputChange}
+          />
+          <button onClick={this.handleFormSubmit}>Signin</button>
+        </form>
       </main>
     );
   }

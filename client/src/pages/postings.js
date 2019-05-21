@@ -96,6 +96,7 @@ class Postings extends Component {
         break;
       default:
     }
+    alert("Thank you, for your opinion.")
     this.updateCounts(postinfo);
   };
 
@@ -211,13 +212,16 @@ class Postings extends Component {
 
             {
               this.state.authorpostings.length &&
-              <TextArea value={this.state.authorpostings[0].text} />
-
+              <div>
+                <TextArea value={this.state.authorpostings[0].text} />
+                <img src={this.state.authorhighestNum.image} alt="dog" />
+                <h3>{this.state.authorhighestNum.msg}</h3>
+              </div>
             }
-            <img src={this.state.authorhighestNum.image} alt="dog" />
-            <h3>{this.state.authorhighestNum.msg}</h3>
+
+
             <h1> Add a new post</h1>
-            <TextArea name="text" placeholder="text"  value={this.state.text} onChange={this.handleInputChange} />
+            <TextArea name="text" placeholder="text" value={this.state.text} onChange={this.handleInputChange} />
 
             <button onClick={this.handleFormSubmit}>
               Submit Posting

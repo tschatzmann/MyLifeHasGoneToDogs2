@@ -2,17 +2,17 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const postingSchema = new Schema({
-    text: {type: String, required: true},
-    boneCount: {type: Number},
-    newspaperCount: {type: Number},
-    cageCount: {type: Number},
+    text: { type: String, required: true },
+    boneCount: { type: Number },
+    newspaperCount: { type: Number },
+    cageCount: { type: Number },
     date: { type: Date, default: Date.now },
-    authorid:{ 
+    authorid: {
         type: Schema.Types.ObjectId,
-        ref:"Author"
+        ref: "Author"
 
 
-     } 
+    }
 
 });
 
