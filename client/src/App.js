@@ -6,7 +6,7 @@ import Posting from './pages/postings';
 import Signin from "./pages/signin";
 import Signup from "./pages/signup";
 import Navbar from "./components/navbar"
-import {PrivateRoute} from "./components/privateroute";
+import { PrivateRoute } from "./components/privateroute";
 
 
 import "./App.css";
@@ -16,30 +16,21 @@ class App extends Component {
   render() {
     return (
       <Router>
-      <div>
-        {/* <nav>
-          <ul>
-            <li><Link to="/">Signin</Link></li>
-            <li><Link to="/posts">{sessionStorage.getItem('authentivate') ? 'Posting' : null}</Link></li>
-            <li><Link to="/signin">Singin</Link></li>
-            <li><Link to="/signup">Signup</Link></li>
+        <div>
+          <Navbar />
+          <main>
+            <Switch>
+              <Route exact path="/" component={Signin} />
+              <PrivateRoute path="/posts" component={Posting} />
+              <Route path="/signin" component={Signin} />
+              <Route path="/signup" component={Signup} />
+              {/* <Route component={Error} /> */}
+            </Switch>
+          </main>
+        </div>
+      </Router>
 
-          </ul>
-        </nav> */}
-        <Navbar/>
-        <main>
-          <Switch>
-            <Route exact path="/"  component={Signin} />
-            <PrivateRoute path="/posts" component={Posting} />
-            <Route path="/signin" component={Signin} />
-            <Route path="/signup" component={Signup} />
-            {/* <Route component={Error} /> */}
-          </Switch>
-        </main>
-      </div>
-    </Router>
 
-  
     );
   }
 }

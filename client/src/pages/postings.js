@@ -213,15 +213,15 @@ class Postings extends Component {
             {
               this.state.authorpostings.length &&
               <div>
-              <TextArea value={this.state.authorpostings[0].text} />
-            <img src={this.state.authorhighestNum.image} alt="dog" />
-            <h3>{this.state.authorhighestNum.msg}</h3>
-            </div>
+                <TextArea value={this.state.authorpostings[0].text} />
+                <img src={this.state.authorhighestNum.image} alt="dog" />
+                <h3>{this.state.authorhighestNum.msg}</h3>
+              </div>
             }
 
 
             <h1> Add a new post</h1>
-            <TextArea name="text" placeholder="text"  value={this.state.text} onChange={this.handleInputChange} />
+            <TextArea name="text" placeholder="text" value={this.state.text} onChange={this.handleInputChange} />
 
             <button onClick={this.handleFormSubmit}>
               Submit Posting
