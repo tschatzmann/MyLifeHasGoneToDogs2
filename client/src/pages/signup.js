@@ -23,7 +23,7 @@ class Signup extends Component {
     if (pattern.test(email)) {
        validationErrorEmail = false;
     } else {
-        alert('Bad email address: ' + email);
+        // alert('Bad email address: ' + email);
         validationErrorEmail = true;
     }
 
@@ -72,7 +72,7 @@ class Signup extends Component {
           alert("user not saved")
         }
         else{
-          alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
+          alert(`Welcome to My Life Has Gone To The Dogs. \nUsername: ${this.state.username}\nPassword: ${this.state.password}`);
           // this.setState({ username: "", password: "" });
        
         } 
