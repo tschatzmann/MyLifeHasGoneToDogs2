@@ -3,7 +3,7 @@ import { Jumbotron, Col, Row } from 'reactstrap';
 import "./css/style.css"
 
 const line1 = "Feel free to anonymously tell others about life's frustrations and achievements";
-const line2 = 'Share your opinion with others';
+const line2 = 'Sign In to share your opinion with others';
 
 const dogJumbotron = (props) => {
     return (
