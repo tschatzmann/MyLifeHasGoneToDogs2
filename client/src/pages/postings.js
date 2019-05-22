@@ -213,7 +213,7 @@ class Postings extends Component {
 
             {
               this.state.authorpostings.length &&
-              <div>
+              <div  className="text-center" >
                 <TextArea value={this.state.authorpostings[0].text} />
                 <img src={this.state.authorhighestNum.image} alt="dog" />
                 <h3>{this.state.authorhighestNum.msg}</h3>
@@ -222,7 +222,7 @@ class Postings extends Component {
             <br></br>
             <br></br>
             <br></br>
-            <div className="container" style={{backgroundColor: "#3A506B", width: '700px', height: '250px'}}>
+            <div className="container"  style={{backgroundColor: "#3A506B", width: '700px', height: '250px'}}>
             <br></br>
             <h1>Add a new post</h1>
             <TextArea name="text" placeholder="text" value={this.state.text} onChange={this.handleInputChange} />
@@ -245,9 +245,9 @@ class Postings extends Component {
                 {this.state.allpostings.map(allpost => (
                   <ListItem key={allpost._id}>
                     <Button color="blue" onClick={(e) => this.handlebuttonclick(allpost)} style={{ color: "blue" }}> {allpost.text}</Button>
-                    <Modal isOpen={this.state.modal} toggle={this.toggle.bind(this)} >
+                    <Modal style={{color: "black"}} isOpen={this.state.modal} toggle={this.toggle.bind(this)} >
                       <ModalHeader toggle={this.toggle.bind(this)}>{this.state.highestNum.text}</ModalHeader>
-                      <ModalBody>
+                      <ModalBody className="text-center" style={{backgroundColor: "#C6FFF6"}}>
                         <img src={this.state.highestNum.image} alt="dog" />
                         <h3>{this.state.highestNum.msg}</h3>
                       </ModalBody>
